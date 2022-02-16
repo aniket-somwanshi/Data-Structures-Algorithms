@@ -44,7 +44,6 @@ public:
             jump = next_jump;
             prev = next_prev;
             
-            
         }
         
         
