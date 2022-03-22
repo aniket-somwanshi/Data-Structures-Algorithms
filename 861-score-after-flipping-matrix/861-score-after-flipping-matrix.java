@@ -1,6 +1,6 @@
 class Solution {
     /*
-    O(4(M*N))
+    O(4(N*M))
     1. check if a row should be flipped 
     2. flip those rows
     3. check if a col can be flipped 
