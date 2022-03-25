@@ -1,11 +1,4 @@
 class Solution {
-    // d = a-b
-    // d1 d2 d3 ... d2n
-    // if d1 < d2 < d3 ... < d2n
-    // take d1 to dn to a, dn+1 to d2n to b is optimal
-    
-    
-    // why? if it's not optimal, then, ak - bk < aj - bj, but we take bk and aj => bk+aj > ak+bj => wrong answer
     public int twoCitySchedCost(int[][] costs) {
         if (costs == null || costs.length == 0) return 0;
         for (int i=0; i<costs.length; i++) {
