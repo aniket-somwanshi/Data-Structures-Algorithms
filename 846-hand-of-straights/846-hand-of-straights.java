@@ -1,34 +1,43 @@
+import java.util.SortedMap;
+
+
 class Solution {
-    // O(NlogN + NlogN) O(N) .. N = number of unique cards in hand[] 
+    // O(N logN) O(N)
     public boolean isNStraightHand(int[] hand, int groupSize) {
         int n = hand.length;
-        if (n%groupSize != 0) return false;
         
-        TreeMap<Integer, Integer> map = new TreeMap<>();
-        // store freq
-        for (int card: hand) {
-            map.put(card, map.getOrDefault(card, 0) + 1);
-        } 
-        // map is sorted on cards
+        // if n is not a multiple of groupSize its never possible
+        if (n % groupSize != 0) return false;
         
-        while (map.isEmpty() == false) {
-            int iteration = groupSize;
-            int target = map.firstKey();
-            while (iteration-- > 0 && map.containsKey(target)) {
-                // reduce freq in map
-                if (map.get(target) == 1) {
-                    // if none left then erase this card from map
-                    map.remove(target);
-                }
-                else map.put(target, map.get(target)-1);
-                target += 1;
-            }
-            // if all "groupSize" no. of consecutive cards were found,
-            // then iteration will be at 0
-            // if it's not at zero, it means one of the consecutive cards
-            // were not found in the map
-            if (iteration >= 0) return false;
+        SortedMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
+
+        // populate map
+        for (int num: hand) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
+        
+        // for every groupSize, try to find consecutive numbers in map
+        // if it doesn't exist, return false
+        int numberOfGroups = n/groupSize;
+        while (numberOfGroups-- > 0) {
+            int numberOfGroupElements = groupSize;
+            int current = map.firstKey();
+            while (numberOfGroupElements-- > 0) {
+                if (map.containsKey(current)) {
+                    // if it was not the last one, reduce the count
+                    if (map.get(current) > 1) {
+                        map.put(current, map.get(current) - 1);
+                    }
+                    // else there are no more keys so erase it
+                    else {
+                        map.remove(current);
+                    }
+                    current = current + 1;
+                }
+                else return false;
+            }
+        }
+        
         return true;
     }
 }
