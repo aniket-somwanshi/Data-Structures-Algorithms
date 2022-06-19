@@ -1,33 +1,39 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        // Initalize the left and right boundaries 
-        int left = 1, right = 1;
-        for (int pile : piles) {
-            right = Math.max(right, pile);
+        int n = piles.length;
+        
+        // find max 
+        int maxi = Integer.MIN_VALUE;
+        for (int num: piles) {
+            maxi = Math.max(maxi, num);
         }
-
-        while (left < right) {
-            // Get the middle index between left and right boundary indexes.
-            // hourSpent stands for the total hour Koko spends.
-            int middle = (left + right) / 2;
-            int hourSpent = 0;
-
-            // Iterate over the piles and calculate hourSpent.
-            // We increase the hourSpent by ceil(pile / middle)
-            for (int pile : piles) {
-                hourSpent += Math.ceil((double) pile / middle);
+        
+        int upperBound = maxi;
+        
+        // binary search
+        int left = 1;
+        int right = upperBound;
+        int k = 1;
+        while (left <= right) {
+            int mid = left + (right - left)/2; 
+            if (isPossible(mid, piles, h)) {
+                k = mid;
+                right = mid-1;
             }
-
-            // Check if middle is a workable speed, and cut the search space by half.
-            if (hourSpent <= h) {
-                right = middle;
-            } else {
-                left = middle + 1;
+            else {
+                left = mid+1;
             }
         }
-
-        // Once the left and right boundaries coincide, we find the target value,
-        // that is, the minimum workable eating speed.
-        return right;
+        return k;
+    }
+    
+    private boolean isPossible(int k, int[] piles, int hours) {
+        int timeSpent = 0;
+        for (int bananas: piles) {
+            timeSpent += bananas/k;
+            timeSpent += bananas%k != 0 ? 1 : 0;
+            if (timeSpent > hours) return false;
+        }
+        return timeSpent <= hours;
     }
 }
