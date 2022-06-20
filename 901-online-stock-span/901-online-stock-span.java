@@ -12,7 +12,7 @@ class StockSpanner {
         stack = new Stack<>();
     }
     
-    // O(N) O(N) -- monotoic stack
+    // O(N) O(N) -- monotonic stack
     public int next(int price) {
         int currentSpan = 1;
         while (stack.isEmpty() == false && stack.peek().price <= price) {
