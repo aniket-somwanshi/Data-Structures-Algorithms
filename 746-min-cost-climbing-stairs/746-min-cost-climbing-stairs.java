@@ -2,7 +2,7 @@ class Solution
 {
     public int minCostClimbingStairs(int[] cost) 
     {
-        // O(n) time | O(n) space
+        
         // we hyave [cost.length + 1] because we treat top floor as reachable stair
         int minCost[] = new int[cost.length + 1];
         
