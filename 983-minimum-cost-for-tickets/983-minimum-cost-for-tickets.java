@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(N) -- dp iterative
     private int[] days, costs;
     public int mincostTickets(int[] days, int[] costs) {
         int n = days.length;
@@ -48,7 +49,7 @@ class Solution {
 }
 
 // class Solution {
-//     // O(N) O(N)
+//     // O(N) O(N) -- memoization
 //     private Integer[] minCost; // min cost from index i to end
 //     private int[] days;
 //     private int[] costs;
