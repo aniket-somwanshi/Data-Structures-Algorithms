@@ -19,7 +19,6 @@ class Solution {
         int cost3 = dfs(getLastIndexCovered(index, 30)+ 1) + costs[2];  // 30 day pass taken 
         
         minCost[index] = Math.min(cost1, Math.min(cost2, cost3));
-        System.out.println(index +" " +minCost[index]);
         return minCost[index];
     }
     
@@ -36,7 +35,6 @@ class Solution {
             }
             else right = mid - 1;
         }
-        System.out.println(index+ " d "+lastIndexCovered);
         return lastIndexCovered;
     }
 }
