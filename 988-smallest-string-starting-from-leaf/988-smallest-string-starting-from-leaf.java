@@ -1,4 +1,5 @@
 class Solution {
+    // O(N^2) O(N)
     String ans = "~";
     public String smallestFromLeaf(TreeNode root) {
         dfs(root, new StringBuilder());
