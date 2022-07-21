@@ -34,7 +34,7 @@ class DSU {
 }
 
 class Solution {
-    // O(N * 4 alpha) O(N)
+    // O(N * 4 alpha) O(26)
     public boolean equationsPossible(String[] equations) {
         DSU dsu = new DSU(); 
         
