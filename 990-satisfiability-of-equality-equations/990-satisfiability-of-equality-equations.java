@@ -1,7 +1,7 @@
 class DSU {
     private int[] rank;
     private int[] parent;
-    private int MAX_ELEMENTS = 1000;
+    private int MAX_ELEMENTS = 26;
     public DSU() {
         this.rank = new int[MAX_ELEMENTS];
         this.parent = new int[MAX_ELEMENTS];
@@ -34,6 +34,7 @@ class DSU {
 }
 
 class Solution {
+    // O(N * 4 alpha) O(N)
     public boolean equationsPossible(String[] equations) {
         DSU dsu = new DSU(); 
         
