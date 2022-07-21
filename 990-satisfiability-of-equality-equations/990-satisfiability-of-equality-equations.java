@@ -1,7 +1,7 @@
 class DSU {
     private int[] rank;
     private int[] parent;
-    private int MAX_ELEMENTS = 100000;
+    private int MAX_ELEMENTS = 10000;
     public DSU() {
         this.rank = new int[MAX_ELEMENTS];
         this.parent = new int[MAX_ELEMENTS];
