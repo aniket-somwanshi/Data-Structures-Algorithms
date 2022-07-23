@@ -1,25 +1,29 @@
 class Solution {
-  public int minDominoRotations(int[] tops, int[] bottoms) {
-    int[] rotations = new int[6];
-    final int length = tops.length;
-    for (int i = 1; i <= 6; i++) {
-      int topRotationCount = 0;
-      int bottomRotationCount = 0;
-      for (int j = 0; j < length; j++) {
-        if(!isPresent(i, tops[j],bottoms[j])) {
-          bottomRotationCount = Integer.MAX_VALUE;
-          topRotationCount = Integer.MAX_VALUE;
-          break;
+    // O(6*N) O(1)
+    public int minDominoRotations(int[] tops, int[] bottoms) {
+        int n = tops.length;
+        int miniSwaps = Integer.MAX_VALUE;
+        
+        for (int commonDomino = 1; commonDomino <= 6; commonDomino++) {            
+            int i = 0;
+            int topSwapsNeeded = 0;
+            int bottomSwapsNeeded = 0;
+            for (; i < n; i++) {
+                if (tops[i] != commonDomino && bottoms[i] != commonDomino) {
+                    break;
+                }
+                else if (tops[i] != commonDomino) {
+                    topSwapsNeeded++;
+                }
+                else if (bottoms[i] != commonDomino) {
+                    bottomSwapsNeeded++;
+                }
+            }
+            if (i == n) {
+                System.out.println(commonDomino + " " + topSwapsNeeded);
+                miniSwaps = Math.min(miniSwaps, Math.min(topSwapsNeeded, bottomSwapsNeeded));
+            }
         }
-        if (tops[j] == i && bottoms[j] != i) bottomRotationCount++;
-        else if (tops[j] != i && bottoms[j] == i) topRotationCount++;
-      }
-      rotations[i-1] = Math.min(topRotationCount, bottomRotationCount);
+        return miniSwaps == Integer.MAX_VALUE ? -1 : miniSwaps;
     }
-    Arrays.sort(rotations);
-    return rotations[0] == Integer.MAX_VALUE ? -1 : rotations[0];
-  }
-  private boolean isPresent(int num, int top, int bottom) {
-    return top == num || bottom == num;
-  }
 }
