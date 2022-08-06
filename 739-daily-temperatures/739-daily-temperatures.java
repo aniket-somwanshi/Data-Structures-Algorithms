@@ -1,7 +1,6 @@
 class Solution {
 
 public int[] dailyTemperatures(int[] temperatures) {
-//use Array 11 ms 131.2 MB
 
     int[] result = new int[temperatures.length];
     int[] stack = new int[temperatures.length + 1];
