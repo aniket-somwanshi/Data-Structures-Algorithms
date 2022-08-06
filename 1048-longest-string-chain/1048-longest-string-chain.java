@@ -1,4 +1,5 @@
 class Solution {
+    // O(NlogN + N) O(N)
     // optimized -- Map to lookup a string 
     public int longestStrChain(String[] words) {
         Map<String, Integer> map = new HashMap<>();
@@ -19,8 +20,8 @@ class Solution {
     }
 }
 // class Solution {
-//     // O(NlogN + N^2)
-//     Integer[] dp;
+//     // O(NlogN + N^2) O(N) = O(N^2) O(N) 
+//     Integer[] dp; 
 //     String[] words;
 //     int maxi = 1;
 //     public int longestStrChain(String[] words) {
