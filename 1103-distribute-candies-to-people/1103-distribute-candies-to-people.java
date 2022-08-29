@@ -1,4 +1,5 @@
 class Solution {
+    // O(num_people) O(1)
     public int[] distributeCandies(int candies, int num_people) {
         int N = getN(candies);
         
@@ -37,9 +38,9 @@ class Solution {
     } 
     
     private int getSumOfNTermsInAP(int a, int n, int d) {
-        System.out.println(a+" "+n+" "+d+" d");
+        //System.out.println(a+" "+n+" "+d+" d");
         int ans = (n*(2*a + (n-1)*d))/2;
-        System.out.println(ans);
+        //System.out.println(ans);
         return ans;
 
     }
