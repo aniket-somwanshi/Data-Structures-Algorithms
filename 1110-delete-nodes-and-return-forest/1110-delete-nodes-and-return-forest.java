@@ -14,6 +14,7 @@
  * }
  */
 class Solution {
+    // O(N) O(N)
     Set<Integer> set;
     List<TreeNode> res;
     public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
