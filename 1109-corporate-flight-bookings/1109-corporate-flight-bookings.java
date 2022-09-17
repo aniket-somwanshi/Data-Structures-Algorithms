@@ -1,4 +1,5 @@
 class Solution {
+    // O(M + N) O(1) -- M = bookings.length
     public int[] corpFlightBookings(int[][] bookings, int n) {
         int[] res = new int[n];
         for (int[] booking: bookings) {
