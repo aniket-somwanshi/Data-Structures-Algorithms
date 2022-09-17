@@ -2,6 +2,7 @@ class Solution {
     Integer[][] memo;
     int[][] books;
     int shelfWidth;
+    // O(N*M) O(N*M)) -- M = shelfWidth
     public int minHeightShelves(int[][] books, int shelfWidth) {
         int n = books.length;
         this.memo = new Integer[n][shelfWidth+1];
