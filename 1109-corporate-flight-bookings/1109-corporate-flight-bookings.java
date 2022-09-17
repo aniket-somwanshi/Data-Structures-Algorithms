@@ -1,5 +1,8 @@
 class Solution {
     // O(M + N) O(1) -- M = bookings.length
+    // Cumulative adding
+    // for any entry, add those seats to start, and subtract those seats from end+1
+    // at the end move forward all indices values -- res[i] += res[i-1]
     public int[] corpFlightBookings(int[][] bookings, int n) {
         int[] res = new int[n];
         for (int[] booking: bookings) {
