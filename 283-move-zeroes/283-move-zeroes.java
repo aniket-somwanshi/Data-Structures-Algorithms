@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(1)
     public void moveZeroes(int[] nums) {
         int n = nums.length;
         int zeros = 0;
