@@ -14,9 +14,8 @@ class Solution {
         }
         System.out.println(zeros);
         int index = n-1;
-        while (zeros > 0) {
+        while (zeros-- > 0) {
             nums[index--] = 0;
-            zeros--;
         }
     }
 }
