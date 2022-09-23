@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(N)
         public int subarraySum(int[] nums, int k) {
     int n = nums.length;
     Map<Integer, Integer> map = new HashMap<>();
