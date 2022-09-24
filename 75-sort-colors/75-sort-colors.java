@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(1) one pass
     public void sortColors(int[] nums) {
         int n = nums.length;
         int left = 0;
