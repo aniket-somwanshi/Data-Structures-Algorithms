@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(1)
     public String largestOddNumber(String num) {
         int n = num.length();
         int i = n - 1;
