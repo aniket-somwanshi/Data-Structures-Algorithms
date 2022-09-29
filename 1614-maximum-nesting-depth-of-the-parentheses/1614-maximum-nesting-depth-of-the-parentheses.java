@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(1)
     public int maxDepth(String s) {
         int power = 0;
         int res = 0;
