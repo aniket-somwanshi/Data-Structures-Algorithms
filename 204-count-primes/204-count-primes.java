@@ -1,19 +1,17 @@
 class Solution {
-   int countPrimes(int n) {
-    boolean[] isPrime = new boolean[n];
-    // initialize the array to true
-    Arrays.fill(isPrime, true);
-
-    for (int i = 2; i < n; i++) 
-        if (isPrime[i]) 
-            // multiples of i can't be prime anymore
-            for (int j = 2 * i; j < n; j += i) 
-                    isPrime[j] = false;
-    
-    int count = 0;
-    for (int i = 2; i < n; i++)
-        if (isPrime[i]) count++;
-    
-    return count;
-}
+    public int countPrimes(int n) {
+        boolean[] sieve = new boolean[n];
+        Arrays.fill(sieve, true);
+        for (int prime = 2; prime < n; prime++) {
+            if (sieve[prime] == false) continue;
+            // mark his multiples as non-prime
+            for (int j = 2 * prime; j < n; j += prime) {
+                sieve[j] = false;
+            }
+        }
+        //System.out.println(Arrays.toString(sieve));
+        int c = 0;
+        for (int i = 2; i <= n-1; i++) if (sieve[i]) c++;
+        return c;
+    }
 }
