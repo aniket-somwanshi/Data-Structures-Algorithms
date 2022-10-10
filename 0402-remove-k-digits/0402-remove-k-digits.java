@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(N)
     public String removeKdigits(String num, int k) {
         int n = num.length();
         Stack<Character> s = new Stack<Character>();
