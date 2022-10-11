@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(2)
     public int totalFruit(int[] a) {
         int n = a.length;
         Map<Integer, Integer> map = new HashMap<>(); // (fruitType, count)
