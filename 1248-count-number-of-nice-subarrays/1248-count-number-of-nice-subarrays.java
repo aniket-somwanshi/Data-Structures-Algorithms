@@ -1,4 +1,7 @@
 class Solution {
+    // O(N + N-1) O(1)
+    // count(odds = k) = count(odds <= k) - count(odds <= k-1)
+    // this works if our criteria (here number of odds) is gonna increase or stay the same, if we add a new element
     public int numberOfSubarrays(int[] nums, int k) { 
         return numSubarraysWithOddsUpto(nums, k) - numSubarraysWithOddsUpto(nums, k-1);
     }
