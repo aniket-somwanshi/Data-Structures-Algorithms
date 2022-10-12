@@ -1,6 +1,7 @@
 class Solution {
     // O(N) O(3)
-    // ans = total substrings - substr with 0 occurances of abc
+    // total substrings - substr with 0 occurances of abc
+    // = substr with more than 0 occurances of abc
     public int numberOfSubstrings(String s) {
      int n = s.length();
         long total = (long)Math.pow(n, 2) + n;
