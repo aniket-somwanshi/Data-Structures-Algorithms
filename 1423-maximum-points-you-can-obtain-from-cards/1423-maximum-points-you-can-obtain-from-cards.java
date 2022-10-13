@@ -1,4 +1,5 @@
 class Solution {
+    // O(K + K) O(1)
     public int maxScore(int[] a, int k) {
         int n = a.length;
         int left = 0;
