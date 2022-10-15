@@ -1,4 +1,5 @@
 class Solution {
+    // O(N + N*K*26) O(26 + 26) -- N = tasks.length, K = idle time
     public int leastInterval(char[] tasks, int k) {
         int n = tasks.length;
         int[] count = new int[26];
