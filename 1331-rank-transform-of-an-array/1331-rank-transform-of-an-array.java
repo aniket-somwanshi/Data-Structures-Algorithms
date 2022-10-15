@@ -1,13 +1,5 @@
-class Pair <T, U> {
-    T first;
-    U second;
-    public Pair(T first, U second) {
-        this.first = first;
-        this.second = second;
-    }
-}
-
 class Solution {
+    // O(NlogN) O(N)
     public int[] arrayRankTransform(int[] a) {
         int n = a.length;
         PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(
@@ -26,5 +18,14 @@ class Solution {
             if (!pq.isEmpty() && pq.peek().first > el) rank++; 
         }
         return a;
+    }
+
+}
+class Pair <T, U> {
+    T first;
+    U second;
+    public Pair(T first, U second) {
+        this.first = first;
+        this.second = second;
     }
 }
