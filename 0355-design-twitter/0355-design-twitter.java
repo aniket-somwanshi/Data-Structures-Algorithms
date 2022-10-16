@@ -21,6 +21,7 @@ class Twitter {
         map.get(userId).add(userId);
     }
     
+    // O(N)
     public List<Integer> getNewsFeed(int userId) {
         List<Integer> res = new LinkedList<>();
         for (Tweet tweet: tweets) {
