@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(1)
     public boolean lemonadeChange(int[] bills) {
         int n = bills.length;
         int fivers = 0;
