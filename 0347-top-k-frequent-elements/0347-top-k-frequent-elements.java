@@ -8,6 +8,7 @@
 		}
 	}
 class Solution {
+    // O(NlogK) O(K)
     public int[] topKFrequent(int[] nums, int k) {
         PriorityQueue<Pair<Integer, Integer>> minHeap = new PriorityQueue<>(
         (a, b) -> a.first - b.first
