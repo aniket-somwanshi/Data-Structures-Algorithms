@@ -1,6 +1,7 @@
 class KthLargest {
     PriorityQueue<Integer> minHeap;
     int k;
+    // O(N*logK) O(k)
     public KthLargest(int k, int[] nums) {
         this.k = k;
         minHeap = new PriorityQueue<>();
@@ -10,6 +11,7 @@ class KthLargest {
         }
     }
     
+    // O(2logK)
     public int add(int val) {
         minHeap.add(val);
         if (minHeap.size() > k) minHeap.poll();
