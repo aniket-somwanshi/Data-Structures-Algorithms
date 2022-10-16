@@ -1,4 +1,5 @@
 class Solution {
+    // O(NlogN + NlogN) O(N)
     public boolean isNStraightHand(int[] hand, int groupSize) {
         int n = hand.length;
         if (n % groupSize != 0) return false;
