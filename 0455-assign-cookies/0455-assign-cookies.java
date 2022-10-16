@@ -1,4 +1,5 @@
 class Solution {
+    // O(NlogN + MlogM + N + M) O(N + M) -- greeedy 
     public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
         Arrays.sort(s);
