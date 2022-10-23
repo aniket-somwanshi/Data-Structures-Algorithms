@@ -1,4 +1,5 @@
 public class Solution {
+    // O(N) O(1) -- Greedy
 public int jump(int[] nums) {
     // If nums.length < 2, means that we do not
     // need to move at all.
