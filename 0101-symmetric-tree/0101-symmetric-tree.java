@@ -1,3 +1,4 @@
+// O(N) O(H) -- dfs
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         return isValid(root.left, root.right);
