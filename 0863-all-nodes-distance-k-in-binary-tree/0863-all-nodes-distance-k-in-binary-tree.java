@@ -1,54 +1,113 @@
-// O(N + N) O(N + N + N)
 class Solution {
+    List<Integer> res;
+    TreeNode target;
+    int k;
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        List<Integer> res = new LinkedList<>();
-        if (root == null) return res;
+        this.res = new LinkedList<>();
+        this.target = target;
+        this.k = k;
         
         if (k == 0) {
-            res.add(target.val); return res;
+            res.add(target.val);
+            return res;
         }
         
-        Map<TreeNode, TreeNode> parent = new HashMap<>();
-        populateParents(root, null, parent);
-        
-        // bfs
-        Set<TreeNode> set = new HashSet<>();
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(target);
-        set.add(target);
-        
-        int level = 0;
-        while (!q.isEmpty()) {
-            int size = q.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode current = q.poll();
-                
-                if (level == k) res.add(current.val);
-                
-                if (current.left != null && !set.contains(current.left)) {
-                    q.add(current.left); set.add(current.left);
-                }
-                if (current.right != null && !set.contains(current.right)) {
-                    q.add(current.right); set.add(current.right);
-                }
-                if (parent.get(current) != null && !set.contains(parent.get(current))) {
-                    q.add(parent.get(current)); set.add(parent.get(current));
-                }
-            }
-            level++;
-        }
+        dfs(root);
         
         return res;
     }
     
-    private void populateParents(TreeNode node, TreeNode p, Map<TreeNode, TreeNode> map) {
+    private void addChildren(TreeNode node, int d) {
         if (node == null) return;
-        if (p != null) map.put(node, p);
-        populateParents(node.left, node, map);
-        populateParents(node.right, node, map);
+        if (d > k) return;
+        
+        if (d == k) {
+            res.add(node.val);
+            return;
+        }
+        
+        addChildren(node.left, d + 1);
+        addChildren(node.right, d + 1);
     }
     
+    private int dfs(TreeNode node) {
+        if (node == null) return -1;
+        
+        if (node == target) {
+            addChildren(node.left, 1);
+            addChildren(node.right, 1);
+            return 1;
+        }
+        
+        int left = dfs(node.left);
+        if (left != -1) {
+            if (left == k) res.add(node.val);
+            addChildren(node.right, left + 1);
+            return left + 1;
+        }
+        
+        int right = dfs(node.right);
+        if (right != -1) {
+            if (right == k) res.add(node.val);
+            addChildren(node.left, right + 1);
+            return right + 1;
+        }
+        
+        return -1;       
+    }
 }
+
+// // O(N + N) O(N + N + N)
+// class Solution {
+//     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+//         List<Integer> res = new LinkedList<>();
+//         if (root == null) return res;
+        
+//         if (k == 0) {
+//             res.add(target.val); return res;
+//         }
+        
+//         Map<TreeNode, TreeNode> parent = new HashMap<>();
+//         populateParents(root, null, parent);
+        
+//         // bfs
+//         Set<TreeNode> set = new HashSet<>();
+//         Queue<TreeNode> q = new LinkedList<>();
+//         q.add(target);
+//         set.add(target);
+        
+//         int level = 0;
+//         while (!q.isEmpty()) {
+//             int size = q.size();
+//             for (int i = 0; i < size; i++) {
+//                 TreeNode current = q.poll();
+                
+//                 if (level == k) res.add(current.val);
+                
+//                 if (current.left != null && !set.contains(current.left)) {
+//                     q.add(current.left); set.add(current.left);
+//                 }
+//                 if (current.right != null && !set.contains(current.right)) {
+//                     q.add(current.right); set.add(current.right);
+//                 }
+//                 if (parent.get(current) != null && !set.contains(parent.get(current))) {
+//                     q.add(parent.get(current)); set.add(parent.get(current));
+//                 }
+//             }
+//             level++;
+//         }
+        
+//         return res;
+//     }
+    
+//     private void populateParents(TreeNode node, TreeNode p, Map<TreeNode, TreeNode> map) {
+//         if (node == null) return;
+//         if (p != null) map.put(node, p);
+//         populateParents(node.left, node, map);
+//         populateParents(node.right, node, map);
+//     }
+    
+// }
 
 // wrong solution
 // class Solution {
