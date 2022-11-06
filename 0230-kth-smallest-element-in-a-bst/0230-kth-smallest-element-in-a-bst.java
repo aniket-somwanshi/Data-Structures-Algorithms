@@ -1,4 +1,4 @@
-// O(N) O(H) 
+// O(N) O(1) -- iterative  
 class Solution {
     public int kthSmallest(TreeNode node, int k) {
         if (node == null) return -1;
