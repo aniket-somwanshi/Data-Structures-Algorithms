@@ -103,10 +103,7 @@ class GfG {
 // } Driver Code Ends
 
 
-// User function Template for Java
-
 class Tree {
-    // Function to return the ceil of given number in BST.
     int mini = Integer.MAX_VALUE;
     int findCeil(Node root, int key) {
         if (root == null) return -1;
@@ -117,7 +114,7 @@ class Tree {
     private void dfs(Node node, int key) {
         if (node == null) return;
         if (node.data >= key) {
-            mini = Math.min(mini, node.data);
+            mini = node.data;
             dfs(node.left, key);
         }
         else dfs(node.right, key);
