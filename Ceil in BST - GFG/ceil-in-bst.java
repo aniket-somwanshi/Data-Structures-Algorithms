@@ -102,21 +102,38 @@ class GfG {
 
 // } Driver Code Ends
 
-
 class Tree {
-    int mini = Integer.MAX_VALUE;
     int findCeil(Node root, int key) {
+        int ceil = -1;
         if (root == null) return -1;
-        dfs(root, key);
-        return mini;
-    }
-    
-    private void dfs(Node node, int key) {
-        if (node == null) return;
-        if (node.data >= key) {
-            mini = node.data;
-            dfs(node.left, key);
+        
+        while (root != null) {
+            if (root.data == key) return root.data;
+            if (root.data > key) {
+                ceil = root.data;
+                root = root.left;
+            } 
+            else root = root.right;
         }
-        else dfs(node.right, key);
+        
+        return ceil;
     }
 }
+
+// class Tree {
+//     int mini = Integer.MAX_VALUE;
+//     int findCeil(Node root, int key) {
+//         if (root == null) return -1;
+//         dfs(root, key);
+//         return mini;
+//     }
+    
+//     private void dfs(Node node, int key) {
+//         if (node == null) return;
+//         if (node.data >= key) {
+//             mini = node.data;
+//             dfs(node.left, key);
+//         }
+//         else dfs(node.right, key);
+//     }
+// }
