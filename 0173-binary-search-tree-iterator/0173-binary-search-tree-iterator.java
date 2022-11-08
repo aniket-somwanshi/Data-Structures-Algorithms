@@ -6,6 +6,7 @@ class BSTIterator {
         s = new Stack<>();
     }
     
+    // O(1) average for entire tree O(H)
     public int next() {
         while (node != null) {
             s.push(node);
@@ -17,6 +18,7 @@ class BSTIterator {
         return res;
     }
     
+    // O(1) 
     public boolean hasNext() {
         if (node != null || !s.isEmpty()) {
             return true;
