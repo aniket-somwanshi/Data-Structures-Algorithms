@@ -1,4 +1,7 @@
-// O(N*M) O(N*M)
+// O(N*M) O(N*M) -- dfs 
+// but Bfs will be more optimal space, 
+// as at max it will store its neighbors which are
+// up down left right i.e. 4
 class Solution {
     int[][] dir = new int[][] {
         {1, 0}, {0, 1}, {-1, 0}, {0, -1}
