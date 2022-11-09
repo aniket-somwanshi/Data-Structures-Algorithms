@@ -1,3 +1,4 @@
+// O(N*M) O(N*M)
 class Solution {
     int[][] dir = new int[][] {
         {1, 0}, {0, 1}, {-1, 0}, {0, -1}
