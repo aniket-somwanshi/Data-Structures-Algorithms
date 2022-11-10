@@ -21,21 +21,21 @@ class Solution {
         
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
+                // if it's 0, no need to compute distance
                 if (mat[i][j] != 0) {
-                    int left = j-1 >= 0 ? mat[i][j-1] : MAX_VALUE;
+                    int left = j-1 >= 0 ? mat[i][j-1] : MAX_VALUE; 
                     int top = i-1 >= 0 ? mat[i-1][j] : MAX_VALUE;
-                    
                     mat[i][j] = Math.min(left, top) + 1;
                 }
             }
         }
         
         for (int i = rows-1; i >= 0; i--) {
-            for (int j = cols -1; j >= 0; j--) {
+            for (int j = cols-1; j >= 0; j--) {
+                // if it's 0, no need to compute distance
                 if (mat[i][j] != 0) {
-                    int right = j+1 < cols ? mat[i][j+1] : MAX_VALUE;
+                    int right = j+1 < cols ? mat[i][j+1] : MAX_VALUE; 
                     int bottom = i+1 < rows ? mat[i+1][j] : MAX_VALUE;
-                    
                     mat[i][j] = Math.min(mat[i][j], Math.min(right, bottom) + 1);
                 }
             }
