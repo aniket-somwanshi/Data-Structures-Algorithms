@@ -1,3 +1,12 @@
+// O(2(M*N)) O(M*N) -- space can be made O(4) by using BFS instead of dfs
+// all the border 0s are protected from the attack.
+// also the regions which are attached to a border 0 are protected
+// so traverse all the border 0s
+// and run dfs from each of them, to further protect the 
+// regions which they are adjacent to.
+// we mark the protected cells as 'P'
+// finally we traverse again and attack the naive 'O's with 'X's
+// and leave the protected 'O's ie 'P's
 class Solution {
     int[][] dirs = new int[][] {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     public void solve(char[][] board) {
