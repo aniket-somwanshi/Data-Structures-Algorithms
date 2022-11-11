@@ -1,4 +1,4 @@
-// O(V+E) O(V+E + 2V)
+// O(V+E) O(V + 2V)
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
         int n = graph.length;
