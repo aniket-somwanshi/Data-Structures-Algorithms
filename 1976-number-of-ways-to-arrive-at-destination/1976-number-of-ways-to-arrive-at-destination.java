@@ -1,4 +1,5 @@
-// O
+//  O(E* logV) O(3V) -- Dijkstra
+// count number of ways to reach a node with distance = min distance
 class Edge {
     int v; int w;
     public Edge(int v, int w) {
