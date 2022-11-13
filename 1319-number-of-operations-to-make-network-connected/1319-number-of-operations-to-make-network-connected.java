@@ -1,3 +1,4 @@
+// O(E) O(2V)
 class Solution {
     public int makeConnected(int n, int[][] connections) {
         DSU dsu = new DSU(n);
