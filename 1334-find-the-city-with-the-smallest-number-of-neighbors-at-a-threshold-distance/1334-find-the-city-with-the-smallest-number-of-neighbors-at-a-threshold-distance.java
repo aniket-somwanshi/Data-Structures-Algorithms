@@ -1,4 +1,4 @@
-// O()
+// O(N^3) O(N^2) -- N = number of cities/nodes
 class Solution {
     public int findTheCity(int n, int[][] edges, int distanceThreshold) {
         // initialize distance matrix
