@@ -1,14 +1,28 @@
-// O(N) O(N) dp
+// O(N) O(1) dp space optimized
 class Solution {
     public int climbStairs(int n) {
-        int[] dp = new int[n+1];
-        dp[0] = dp[1] = 1;
+        int last = 1;
+        int secondLast = 1;
         for (int i = 2; i <= n; i++) {
-            dp[i] = dp[i-1] + dp[i-2];
+            int current = last + secondLast;
+            secondLast = last;
+            last = current;
         }
-        return dp[n];
+        return last;
     }
 }
+
+// // O(N) O(N) dp
+// class Solution {
+//     public int climbStairs(int n) {
+//         int[] dp = new int[n+1];
+//         dp[0] = dp[1] = 1;
+//         for (int i = 2; i <= n; i++) {
+//             dp[i] = dp[i-1] + dp[i-2];
+//         }
+//         return dp[n];
+//     }
+// }
 
 // // O(N) O(N+N) memo
 // class Solution {
