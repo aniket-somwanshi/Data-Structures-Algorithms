@@ -32,20 +32,20 @@ public class Main {
 
 class Solution {
     int findMaxSum(int a[], int n) {
-        int[] dp = new int[n];
-        dp[0] = a[0];
+        int secondLast = a[0];
+        if (n == 1) return a[0];
         
-        if (n == 1) return dp[0];
-        
-        dp[1] = Math.max(a[1], dp[0]);
+        int last = Math.max(a[1], a[0]);
         
         for (int i = 2; i < n; i++) {
-            dp[i] = Math.max(
-                a[i] + dp[i-2],
-                dp[i-1]
+            int current = Math.max(
+                a[i] + secondLast,
+                last
                 );
+            secondLast = last;
+            last = current;
         }
         
-        return dp[n-1];
+        return last;
     }
 }
