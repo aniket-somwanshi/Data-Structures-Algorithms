@@ -1,3 +1,4 @@
+// O(N) O(1) dp
 class Solution {
     public int rob(int[] a) {
         if (a.length == 1) return a[0];
