@@ -51,21 +51,22 @@ class Solution
     //Function to return max value that can be put in knapsack of capacity W.
     static int knapSack(int w, int wt[], int val[], int n) 
     { 
-        int[][] dp = new int[n+1][w+1];
-        
+        int[] up = new int[w+1];
         
         
         for (int i = 0; i <= n; i++) {
+            int[] current = new int[w+1];
             for (int j = 0; j <= w; j++) {
-                if (j == 0 || i == 0) dp[i][j] = 0;
+                if (j == 0 || i == 0) current[j] = 0;
                 else if (wt[i-1] <= j) {
-                    dp[i][j] = Math.max(dp[i-1][j], val[i-1] + dp[i-1][j-wt[i-1]]);
+                    current[j] = Math.max(up[j], val[i-1] + up[j-wt[i-1]]);
                 }
-                else dp[i][j] = dp[i-1][j];
+                else current[j] = up[j];
             }
+            up = current;
         }
         
-        return dp[n][w];
+        return up[w];
     } 
 }
 
