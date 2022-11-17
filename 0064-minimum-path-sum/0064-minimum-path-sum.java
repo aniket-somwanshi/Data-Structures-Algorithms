@@ -1,3 +1,4 @@
+// O(N*M) O(M+N -- dp
 class Solution {
     public int minPathSum(int[][] a) {
         int rows = a.length, cols = a[0].length;
