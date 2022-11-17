@@ -1,3 +1,4 @@
+// O(M*N) O(M+N) -- dp
 class Solution {
     public int uniquePathsWithObstacles(int[][] a) {
         int rows = a.length, cols = a[0].length;
