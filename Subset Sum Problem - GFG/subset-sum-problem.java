@@ -35,27 +35,25 @@ class GFG
 
 class Solution{
 
-
+    // O(N*SUM) O(SUM)
     static Boolean isSubsetSum(int n, int a[], int sum){
         int cols = sum+1;
         int rows = n;
-        boolean[][] dp = new boolean[rows][cols];
+        boolean[] up = new boolean[cols];
         
         // fill first row
-        if (a[0] < rows) dp[0][a[0]] = true; // rest are already zero
-        
-        // fill first column
-        for (int i = 0; i < rows; i++) {
-            dp[i][0] = true;
-        }
+        if (a[0] < rows) up[a[0]] = true; // rest are already zero
         
         // fill rest
         for (int i = 1; i < rows; i++) {
-            for (int j = 1; j < cols; j++) {
-                if (a[i] > j) dp[i][j] = dp[i-1][j];
-                else dp[i][j] = dp[i-1][j] || dp[i-1][j-a[i]];
+            boolean[] current = new boolean[cols]; 
+            for (int j = 0; j < cols; j++) {
+                if (j == 0) current[j] = true;
+                else if (a[i] > j) current[j] = up[j];
+                else current[j] = up[j] || up[j-a[i]];
             }
+            up = current;
         }
-        return dp[rows-1][cols-1];
+        return up[cols-1];
     }
 }
