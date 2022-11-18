@@ -1,25 +1,58 @@
+// O(N*M) O(min(M, N)) --dp space optimized
+// we can make space = O(min(N, M) by making sure M is the smaller than N 
 class Solution {
     public int longestCommonSubsequence(String s1, String s2) {
         int n = s1.length();
         int m = s2.length();
         
-        int[][] dp = new int[n+1][m+1];
+        int[] prev = new int[m+1];
+        
         
         for (int i = 0; i < n+1; i++) {
+            int[] current = new int[m+1];
             for (int j = 0; j < m+1; j++) {
-                if (i == 0 || j == 0) dp[i][j] = 0;
+                if (i == 0 || j == 0) current[j] = 0;
                 else {
-                    int equal = s1.charAt(i-1) == s2.charAt(j-1) ? 1 + dp[i-1][j-1] : 0;
-                    int deleteFromS1 = dp[i-1][j];
-                    int deleteFromS2 = dp[i][j-1];
+                    int equal = s1.charAt(i-1) == s2.charAt(j-1) ? 1 + prev[j-1] : 0;
+                    int deleteFromS1 = prev[j];
+                    int deleteFromS2 = current[j-1];
                     
-                    dp[i][j] = Math.max(equal, Math.max(deleteFromS1, deleteFromS2));
+                    current[j] = Math.max(equal, Math.max(deleteFromS1, deleteFromS2));
                 }
             }
+            prev = current;
         }
-        return dp[n][m];
+        return prev[m];
     }
 }
+
+
+
+
+
+// // O(N*M) O(N*M) --dp
+// class Solution {
+//     public int longestCommonSubsequence(String s1, String s2) {
+//         int n = s1.length();
+//         int m = s2.length();
+        
+//         int[][] dp = new int[n+1][m+1];
+        
+//         for (int i = 0; i < n+1; i++) {
+//             for (int j = 0; j < m+1; j++) {
+//                 if (i == 0 || j == 0) dp[i][j] = 0;
+//                 else {
+//                     int equal = s1.charAt(i-1) == s2.charAt(j-1) ? 1 + dp[i-1][j-1] : 0;
+//                     int deleteFromS1 = dp[i-1][j];
+//                     int deleteFromS2 = dp[i][j-1];
+                    
+//                     dp[i][j] = Math.max(equal, Math.max(deleteFromS1, deleteFromS2));
+//                 }
+//             }
+//         }
+//         return dp[n][m];
+//     }
+// }
 
 
 
