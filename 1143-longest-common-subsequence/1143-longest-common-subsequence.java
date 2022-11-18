@@ -5,6 +5,8 @@ class Solution {
         int n = s1.length();
         int m = s2.length();
         
+        if (m > n) return longestCommonSubsequence(s2, s1);
+        
         int[] prev = new int[m+1];
         
         
