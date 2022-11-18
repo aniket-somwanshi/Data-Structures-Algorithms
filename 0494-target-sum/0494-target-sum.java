@@ -1,4 +1,4 @@
-// O(N*2*SUM) O(N*2*SUM) -- memoization
+// O(N*2*SUM) O(N*2*SUM) -- dp
 class Solution {
     int offset = 0;
     public int findTargetSumWays(int[] nums, int target) {
