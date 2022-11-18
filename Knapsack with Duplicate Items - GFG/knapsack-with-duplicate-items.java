@@ -35,19 +35,21 @@ class GFG{
 class Solution{
     static int knapSack(int n, int w, int val[], int wt[])
     {
-        int[][] dp = new int[n+1][w+1];
+        int[] up = new int[w+1];
+        int[] current = new int[w+1];
         
         for (int i = 0; i < n+1; i++) {
             for (int j = 0; j < w+1; j++) {
-                if (i == 0 || j == 0) dp[i][j] = 0;
+                if (i == 0 || j == 0) current[j] = 0;
                 else if (wt[i-1] <= j) {
-                    dp[i][j] =Math.max(dp[i-1][j], val[i-1] + dp[i][j-wt[i-1]]);
+                    current[j] =Math.max(up[j], val[i-1] + current[j-wt[i-1]]);
                 }
                 else {
-                    dp[i][j] = dp[i-1][j];
+                    current[j] = up[j];
                 }
             }
+            up = current;
         }
-        return dp[n][w];
+        return up[w];
     }
 }
