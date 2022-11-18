@@ -44,9 +44,6 @@ class Solution{
                 else if (wt[i-1] <= j) {
                     current[j] =Math.max(up[j], val[i-1] + current[j-wt[i-1]]);
                 }
-                else {
-                    current[j] = up[j];
-                }
             }
             up = current;
         }
