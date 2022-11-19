@@ -1,3 +1,5 @@
+// O(N*M) O(N*M) --dp 
+// Find LCS. Whatever characters that are not in LCS, need to be deleted
 class Solution {
     public int minDistance(String s1, String s2) {
         int n = s1.length();
