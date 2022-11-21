@@ -1,3 +1,4 @@
+// O(N^2) O(2N) --dp
 class Solution {
     public int findNumberOfLIS(int[] a) {
         int n = a.length;
