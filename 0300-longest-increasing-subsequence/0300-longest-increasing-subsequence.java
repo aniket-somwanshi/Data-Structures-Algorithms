@@ -1,30 +1,49 @@
-// O(NlogN) O(N) --binary search
-class Solution {
+// // O(NlogN) O(N) --binary search
+// class Solution {
+//     public int lengthOfLIS(int[] a) {
+//         int n = a.length;
+//         int[] res = new int[n];
+//         int lastIndex = 0;
+//         res[lastIndex++] = a[0];
+//         for (int i = 1; i < n; i++) {
+//             if (a[i] > res[lastIndex-1]) {
+//                 res[lastIndex++] = a[i];
+//             }
+//             else {
+//                 int position = getPosition(0, lastIndex-1, res, a[i]);
+//                 res[position] = a[i];
+//             }
+//         }
+//         return lastIndex;
+//     }
+    
+//     private int getPosition(int start, int end, int[] a, int target) {
+//         while (start <= end) {
+//             int mid = start + (end - start)/2;
+//             if (a[mid] == target) return mid;
+//             else if (target > a[mid]) start = mid + 1;
+//             else end = mid - 1;
+//         }
+//         return start;
+//     }
+// }
+
+// O(N*N) O(N*N) --dp (finding max LIS ending at each index)
+// this is useful for printing the actual LIS
+class Solution {    
     public int lengthOfLIS(int[] a) {
         int n = a.length;
-        int[] res = new int[n];
-        int lastIndex = 0;
-        res[lastIndex++] = a[0];
-        for (int i = 1; i < n; i++) {
-            if (a[i] > res[lastIndex-1]) {
-                res[lastIndex++] = a[i];
-            }
-            else {
-                int position = getPosition(0, lastIndex-1, res, a[i]);
-                res[position] = a[i];
+        int[] LISEndingAt = new int[n];
+        Arrays.fill(LISEndingAt, 1);
+        
+        for (int i = 0; i < n; i++) {
+            for (int prev = 0; prev < i; prev++) {
+                if (a[prev] < a[i]) LISEndingAt[i] = Math.max(LISEndingAt[i], LISEndingAt[prev] + 1);
             }
         }
-        return lastIndex;
-    }
-    
-    private int getPosition(int start, int end, int[] a, int target) {
-        while (start <= end) {
-            int mid = start + (end - start)/2;
-            if (a[mid] == target) return mid;
-            else if (target > a[mid]) start = mid + 1;
-            else end = mid - 1;
-        }
-        return start;
+        int res = 0;
+        for (int candidate: LISEndingAt) res = Math.max(res, candidate);
+        return res;
     }
 }
 
