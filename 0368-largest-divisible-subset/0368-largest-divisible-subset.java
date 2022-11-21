@@ -21,8 +21,6 @@ class Solution {
                 
             }
         }
-        System.out.println(Arrays.toString(LDSEndingAt));
-        System.out.println(Arrays.toString(prevLDS));
         
         // get maxlength
         int maxLengthLDS = -1;
@@ -34,7 +32,6 @@ class Solution {
             }
         }
         
-        System.out.println(lastIndexNums);
         
         // print it
         List<Integer> res = new ArrayList<>();
