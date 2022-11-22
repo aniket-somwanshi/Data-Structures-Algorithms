@@ -1,22 +1,23 @@
 class Solution {
     public String countAndSay(int n) {
         if (n == 1) return "1";
-        StringBuilder res = new StringBuilder();
-        String s = countAndSay(n-1);
-        int count = 1;
-        char current = s.charAt(0);
-        for (int i = 1; i < s.length(); i++) {
-            if (s.charAt(i) == current) {
-                count++;
-            }           
-            else {
-                res.append(String.valueOf(count) + current);
-                current = s.charAt(i);
-                count = 1;
+        return say(countAndSay(n-1));
+    }
+    
+    private String say(String input) {
+        String res = "";
+        int i = 0;
+        while (i < input.length()) {
+            // reset counts
+            char currentNumber = input.charAt(i);
+            int currentNumberCount = 0;
+            // find cout of current character
+            while (i < input.length() && input.charAt(i) == currentNumber) {
+                currentNumberCount++;
+                i++;
             }
+            res += Integer.toString(currentNumberCount) + currentNumber;
         }
-        res.append(String.valueOf(count) + current);
-        
-        return res.toString();
+        return res;
     }
 }
