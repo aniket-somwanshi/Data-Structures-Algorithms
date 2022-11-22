@@ -1,3 +1,4 @@
+// O(N*N) O(N*N) --dp --cant be made space O(N)
 class Solution {
     public int countSquares(int[][] a) {
         int n = a.length;
