@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public int minAddToMakeValid(String s) {
         int stillOpen = 0;
