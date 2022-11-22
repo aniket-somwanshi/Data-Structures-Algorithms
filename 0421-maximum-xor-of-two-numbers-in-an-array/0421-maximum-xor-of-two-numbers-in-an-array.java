@@ -1,3 +1,4 @@
+// O(N + N) O(32) -- bit manipulation + Trie
 class Node {
     Node[] child;
     public Node() {
