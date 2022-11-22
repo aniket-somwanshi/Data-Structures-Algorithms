@@ -1,53 +1,74 @@
-class TrieNode {
-    TrieNode[] child;
-    boolean isEnd;
-    public TrieNode() {
-        child = new TrieNode[26];
-        isEnd = false;
-    }
-}
-class Trie {
-    TrieNode root;
-    public Trie() {
-        root = new TrieNode();
-    }
-    
-    public void insert(String word) {
-        TrieNode current = root;
-        int i = 0;
-        while (i < word.length()) {
-            if (current.child[word.charAt(i)-'a'] == null) {
-                current.child[word.charAt(i)-'a'] = new TrieNode();
-            }
-            current = current.child[word.charAt(i)-'a'];
-            i++;
-        }
-        current.isEnd = true;
-    }
-    
-    public boolean search(String word) {
-        TrieNode current = root;
-        int i = 0;
-        while (i < word.length() && current.child[word.charAt(i)-'a'] != null) {
-            current = current.child[word.charAt(i++)-'a'];
-        }
-        return i == word.length() && current.isEnd;
-    }
-    
-    public boolean startsWith(String word) {
-        TrieNode current = root;
-        int i = 0;
-        while (i < word.length() && current.child[word.charAt(i)-'a'] != null) {
-            current = current.child[word.charAt(i++)-'a'];
-        }
-        return i == word.length();
+class Node {
+    int countEnds; // how many strings end here
+    int count; // count how many strings have this character
+    Map<Character, Node> child; // child nodes
+
+    public Node() {
+        child = new HashMap<>();
     }
 }
 
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie obj = new Trie();
- * obj.insert(word);
- * boolean param_2 = obj.search(word);
- * boolean param_3 = obj.startsWith(prefix);
- */
+public class Trie {
+    Node root;
+    public Trie() {
+        root = new Node();
+    }
+
+    public void erase(String word) {
+        if (!search(word)) return;
+
+        Node current = root;
+        int i = 0;
+        while (i < word.length()) {
+            current.count--;
+            current = current.child.get(word.charAt(i));
+            i++;
+        }
+        current.countEnds--;
+    }
+
+    public void insert(String word) {
+        Node current = root;
+        int i = 0;
+        while (i < word.length()) {
+            if (!current.child.containsKey(word.charAt(i))) {
+                current.child.put(word.charAt(i), new Node());
+            }
+            current = current.child.get(word.charAt(i));
+            current.count++;
+            i++;
+        }
+        current.countEnds++;
+    }
+
+    public int countWordsEqualTo(String word) {
+        Node current = root;
+        int i = 0;
+        while (i < word.length() && current.child.containsKey(word.charAt(i))) {
+            current = current.child.get(word.charAt(i));
+            i++;
+        }
+        if (i == word.length()) return current.countEnds;
+        else return 0;
+    }
+
+    public int countWordsStartingWith(String word) {
+        Node current = root;
+        int i = 0;
+        while (i < word.length() && current.child.containsKey(word.charAt(i))) {
+            current = current.child.get(word.charAt(i));
+            i++;
+        }
+        if (i == word.length()) return current.count;
+        else return 0;
+    }
+
+    public boolean search(String word) {
+        return countWordsEqualTo(word) > 0;
+    }
+
+    public boolean startsWith(String prefix) {
+        return countWordsStartingWith(prefix) > 0;
+    }
+
+}
