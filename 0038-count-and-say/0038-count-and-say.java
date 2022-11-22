@@ -1,13 +1,13 @@
-// O(N*N) O(N) -- dp -- C=unknown constant
+// O(N*N) O(1) -- dp -- space optimized
 class Solution {
     public String countAndSay(int n) {
-        String[] dp = new String[n+1];
-        dp[1] = "1";
-        
+        String dp = "1";
+        String current = "";
         for (int i = 2; i <= n; i++) {
-            dp[i] = say(dp[i-1]);
+            current = say(dp);
+            dp = current;
         }
-        return dp[n];
+        return dp;
     }
     
     private String say(String input) {
@@ -27,6 +27,37 @@ class Solution {
         return res;
     }
 }
+
+
+// // O(N*N) O(N) -- dp -- C=unknown constant
+// class Solution {
+//     public String countAndSay(int n) {
+//         String[] dp = new String[n+1];
+//         dp[1] = "1";
+        
+//         for (int i = 2; i <= n; i++) {
+//             dp[i] = say(dp[i-1]);
+//         }
+//         return dp[n];
+//     }
+    
+//     private String say(String input) {
+//         String res = "";
+//         int i = 0;
+//         while (i < input.length()) {
+//             // reset counts
+//             char currentNumber = input.charAt(i);
+//             int currentNumberCount = 0;
+//             // find cout of current character
+//             while (i < input.length() && input.charAt(i) == currentNumber) {
+//                 currentNumberCount++;
+//                 i++;
+//             }
+//             res += Integer.toString(currentNumberCount) + currentNumber;
+//         }
+//         return res;
+//     }
+// }
 
 
 // // O(N*N) O(N) -- recursion -- C=unknown constant
