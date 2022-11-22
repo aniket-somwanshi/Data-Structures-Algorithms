@@ -1,4 +1,4 @@
-// O(N*N) O(1) -- dp -- space optimized
+// O(2^N) O(1) -- dp -- space optimized
 class Solution {
     public String countAndSay(int n) {
         String dp = "1";
