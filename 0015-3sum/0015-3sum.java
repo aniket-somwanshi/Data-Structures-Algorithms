@@ -1,3 +1,7 @@
+// O(NlogN + N*N) O(N)
+// indice i, j, k should not have duplicate values
+// eg. i should not be equal to i-1 as it's already computed for
+// and j should not be equal to j-1  
 class Solution {
     public List<List<Integer>> threeSum(int[] a) {
         List<List<Integer>> res = new ArrayList<>();
