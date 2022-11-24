@@ -25,11 +25,9 @@ class Solution {
                 }
                 else if (a[j] + a[k] > target) {
                     k--;
-                    while (k > j && a[k] == a[k+1]) k--;
                 }
                 else {
                     j++;
-                    while (j < k && a[j] == a[j-1]) j++;
                 }
             } 
         }
