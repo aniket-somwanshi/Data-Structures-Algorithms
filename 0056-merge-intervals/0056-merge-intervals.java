@@ -1,20 +1,24 @@
 class Solution {
-    // O(NlogN + N) O(N + N)
-    public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-        LinkedList<int[]> merged = new LinkedList<>();
-        for (int[] interval : intervals) {
-            // if the list of merged intervals is empty or if the current
-            // interval does not overlap with the previous, simply append it.
-            if (merged.isEmpty() || merged.getLast()[1] < interval[0]) {
-                merged.add(interval);
+    public int[][] merge(int[][] a) {
+        int n = a.length;
+        
+        Arrays.sort(a, (a1, b1) -> a1[0] - b1[0]);
+        
+        List<int[]> res = new ArrayList<>();
+        res.add(new int[] {a[0][0], a[0][1]});
+        
+        for (int i = 1; i < n; i++) {
+            if (res.get(res.size()-1)[1] < a[i][0]) {
+                res.add(new int[] {a[i][0], a[i][1]});
             }
-            // otherwise, there is overlap, so we merge the current and previous
-            // intervals.
             else {
-                merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
+                res.get(res.size()-1)[1] = Math.max(res.get(res.size()-1)[1], a[i][1]);
             }
         }
-        return merged.toArray(new int[merged.size()][]);
+        int[][] ans = new int[res.size()][2];
+        for (int i = 0; i < res.size(); i++) {
+            ans[i] = res.get(i);
+        }
+        return ans;
     }
 }
