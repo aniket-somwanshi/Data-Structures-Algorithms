@@ -1,3 +1,10 @@
+// O(N) O(1) 
+// a high product can be obtained by
+// 1. multiplying a high +ve no by a +ve no
+// 2. multiplying a high -ve no by a -ve no
+// so keep running max and mins
+// and try multiplying them with current el 
+// to get a possibly best product
 class Solution {
     public int maxProduct(int[] a) {
         int miniCurrent = a[0];
