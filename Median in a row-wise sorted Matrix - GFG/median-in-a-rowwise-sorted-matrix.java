@@ -38,7 +38,8 @@ class GFG
 
 // Since N*M is always odd we can never get a number that is not in the matrix and still half of the no's are greater than it and half of them is less than that number.
 
-
+// O(log(10^9) * R*logC) O(1)
+// O(32 * R * logC) O(1)
 class Solution {
     int median(int a[][], int n, int m) {
     int mini = Integer.MAX_VALUE;
