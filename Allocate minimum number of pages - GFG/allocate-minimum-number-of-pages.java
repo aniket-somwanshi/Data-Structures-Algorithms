@@ -33,6 +33,7 @@ class GFG {
 
 class Solution 
 {
+    // O(log(SUM)*N) O(1) // binary search
 public static int findPages(int[] a,int n,int m) {
     // precomputations 
     int sum = 0;
@@ -60,6 +61,7 @@ public static int findPages(int[] a,int n,int m) {
     return low;
 }
 
+// O(N)
 private static boolean isPossible(int[] a, int n, int maxAllowed, int m) {
     int studentsRequired = 1;
     int currentMax = 0;
