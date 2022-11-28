@@ -1,6 +1,6 @@
 class Solution {
     // O(logN) O(1)
-    // at the index `mid`, the countOfMissingNumbers = mid - a[mid] 
+    // at the index `mid`, the countOfMissingNumbers = mid - (a[mid]+1) 
     // if it's <= k, we need more missingNumbers, so go right
     // else go left
     // at the end the right goes before left
