@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummy = new ListNode();
