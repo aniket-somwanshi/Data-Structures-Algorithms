@@ -1,3 +1,4 @@
+// O(2N) O(1)
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
         if (head == null || head.next == null || k == 0) return head;
@@ -10,7 +11,7 @@ class Solution {
             currentNode = currentNode.next;
             n++;
         }
-        System.out.println(n);
+        //System.out.println(n);
         k = k%n;
         if (k == 0) return head;
         
@@ -27,7 +28,7 @@ class Solution {
         ListNode lastNode = currentNode;
         KMinusNthNode = KMinusNthNodePrev.next;
         
-        System.out.println(KMinusNthNode.val);
+        //System.out.println(KMinusNthNode.val);
         
         KMinusNthNodePrev.next = null;
         lastNode.next = firstNode;
