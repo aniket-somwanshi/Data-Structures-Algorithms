@@ -12,7 +12,7 @@ class Node {
     }
 }
 */
-
+// O(N) O(1)
 class Solution {
     public Node copyRandomList(Node head) {
         Node dummy = new Node(-1);
