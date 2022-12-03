@@ -1,3 +1,4 @@
+// O(N^3) O(N^2) backtracking (can be optimized to N^2)
 // try to place a Queen at all places 
 // if possible, place it and move on
 // if not possible try next cell
