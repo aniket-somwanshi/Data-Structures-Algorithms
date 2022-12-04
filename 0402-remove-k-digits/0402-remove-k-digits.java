@@ -1,5 +1,5 @@
 class Solution {
-    // O(N) O(N)
+    // O(N) O(N) -- monotonic stack
     public String removeKdigits(String num, int k) {
         int n = num.length();
         Stack<Character> s = new Stack<Character>();
