@@ -1,11 +1,4 @@
-class Pair {
-    int num;
-    int index;
-    public Pair(int n, int i) {
-        num = n; 
-        index = i;
-    }
-}
+// O(3N) O(2N)
 class Solution {
     public int largestRectangleArea(int[] a) {
         int n = a.length;
@@ -59,5 +52,13 @@ class Solution {
             st.push(new Pair(a[i], i));
         }
         return right;
+    }
+}
+class Pair {
+    int num;
+    int index;
+    public Pair(int n, int i) {
+        num = n; 
+        index = i;
     }
 }
