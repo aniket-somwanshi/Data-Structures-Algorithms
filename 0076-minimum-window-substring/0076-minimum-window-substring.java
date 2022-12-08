@@ -1,3 +1,7 @@
+// O(2(N+M)) O(2*(256)) -- sliding window
+// maintain sliding window which has valid freq as desired
+// when found a valid window, try to shrink it from front
+// to get an even smaller window
 class Solution {
     public String minWindow(String s, String t) {
         int n = s.length();
