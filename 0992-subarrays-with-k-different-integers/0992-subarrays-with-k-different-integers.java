@@ -1,3 +1,11 @@
+// O(2N) O(2N) 
+// convert into aggregate problem so that
+// 2 pointers sliding winodw can be applied. 
+// count(parameter == k) is equal to count(parameter <= k) - count(parameter <= k-1)
+// if k = 4
+// from count of subarrays containing [0, 1, 2, 3, 4] distinct elements,
+// we subtract count of subarrays containing [0, 1, 2, 3] distinct elements
+// so we are left with subarrays containing [4] distinct elements only 
 class Solution {
     public int subarraysWithKDistinct(int[] a, int k) {
         return subarraysWithUptoKDistinct(a, k) -  subarraysWithUptoKDistinct(a, k - 1);
