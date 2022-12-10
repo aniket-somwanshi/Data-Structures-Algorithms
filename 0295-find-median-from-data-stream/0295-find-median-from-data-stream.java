@@ -1,3 +1,11 @@
+// O(logN)-O(logN) O(N)
+// We want the middle of the sorted elements
+// so keep a left half and a right half
+// so that left half <= right half
+// so the medians will be biggest from left half
+// and the smalles from the right half
+// provided that the size of left and right half are equal
+// we can achieve this using a maxHeap and minHeap
 class MedianFinder {
     PriorityQueue<Integer> leftHalf;
     PriorityQueue<Integer> rightHalf;
