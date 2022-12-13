@@ -1,3 +1,4 @@
+// O(N) O(N)
 class Solution {
     public int candy(int[] a) {
         int n = a.length;
