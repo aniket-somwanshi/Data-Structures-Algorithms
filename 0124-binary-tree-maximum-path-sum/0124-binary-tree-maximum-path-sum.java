@@ -9,20 +9,16 @@ class Solution {
     private long getMaxSum(TreeNode node) {
         if (node == null) return 0;
         
-        maxi = Math.max(maxi, node.val);
-        
         long leftMaxSum = getMaxSum(node.left);
         
         long rightMaxSum = getMaxSum(node.right);
-        
-        
         
         // if sum coming from left subtree is negative, it weakens our answer
         // so don't propogate it upwards
         leftMaxSum = leftMaxSum < 0 ? 0 : leftMaxSum;
         
+        // same for right
         rightMaxSum = rightMaxSum < 0 ? 0 : rightMaxSum;
-        
         
         // connecting the left and right paths
         maxi = Math.max(maxi, leftMaxSum + rightMaxSum + node.val);
