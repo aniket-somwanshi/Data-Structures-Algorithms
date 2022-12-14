@@ -1,21 +1,4 @@
-class rowPair {
-    TreeNode node;
-    int row;
-    public rowPair(TreeNode n, int r) {
-        node = n;
-        row = r;
-    }
-}
-
-class colPair {
-    TreeNode node;
-    int col;
-    public colPair(TreeNode n, int c) {
-        node = n;
-        col = c;
-    }
-}
-
+// O(N+N) O(N+N) 
 class Solution {
     public List<List<Integer>> verticalTraversal(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
@@ -90,5 +73,22 @@ class Solution {
         }
         
         return res;
+    }
+}
+class rowPair {
+    TreeNode node;
+    int row;
+    public rowPair(TreeNode n, int r) {
+        node = n;
+        row = r;
+    }
+}
+
+class colPair {
+    TreeNode node;
+    int col;
+    public colPair(TreeNode n, int c) {
+        node = n;
+        col = c;
     }
 }
