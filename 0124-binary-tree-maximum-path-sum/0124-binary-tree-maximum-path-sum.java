@@ -1,32 +1,35 @@
-
 class Solution {
+    long maxi;
     public int maxPathSum(TreeNode root) {
-        maxSum = Integer.MIN_VALUE;
-        gainFromSubtree(root);
-        return maxSum;
+        maxi = Integer.MIN_VALUE;
+        getMaxSum(root);
+        return (int)maxi;
     }
-
-    private int maxSum;
-
-    // post order traversal of subtree rooted at `root`
-    private int gainFromSubtree(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-
-        // add the path sum from left subtree. Note that if the path
-        // sum is negative, we can ignore it, or count it as 0.
-        // This is the reason we use `Math.max` here.
-        int gainFromLeft = Math.max(gainFromSubtree(root.left), 0);
-
-        // add the path sum from right subtree. 0 if negative
-        int gainFromRight = Math.max(gainFromSubtree(root.right), 0);
-
-        // if left or right path sum are negative, they are counted
-        // as 0, so this statement takes care of all four scenarios
-        maxSum = Math.max(maxSum, gainFromLeft + gainFromRight + root.val);
-
-        // return the max sum for a path starting at the root of subtree
-        return Math.max(gainFromLeft + root.val, gainFromRight + root.val);
+    
+    private long getMaxSum(TreeNode node) {
+        if (node == null) return 0;
+        
+        maxi = Math.max(maxi, node.val);
+        
+        long leftMaxSum = getMaxSum(node.left);
+        
+        long rightMaxSum = getMaxSum(node.right);
+        
+        
+        
+        // if sum coming from left subtree is negative, it weakens our answer
+        // so don't propogate it upwards
+        leftMaxSum = leftMaxSum < 0 ? 0 : leftMaxSum;
+        
+        rightMaxSum = rightMaxSum < 0 ? 0 : rightMaxSum;
+        
+        
+        // connecting the left and right paths
+        maxi = Math.max(maxi, leftMaxSum + rightMaxSum + node.val);
+        
+        // carry upwards the path which is gives more sum
+        maxi = Math.max(maxi, Math.max(leftMaxSum, rightMaxSum) + node.val);
+        
+        return Math.max(leftMaxSum, rightMaxSum) + node.val;
     }
 }
