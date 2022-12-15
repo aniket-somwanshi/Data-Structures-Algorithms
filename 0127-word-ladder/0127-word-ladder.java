@@ -1,3 +1,4 @@
+// O(N^2 + N^2) O(N^2)
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         // check if destination words exists in wordList
