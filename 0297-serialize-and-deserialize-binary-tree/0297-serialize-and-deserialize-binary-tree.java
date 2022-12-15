@@ -1,6 +1,6 @@
 // preorder (DFS)
-// serialize: O(N) O(1)
-// deserialize: O(N) O(1)
+// serialize: O(N) O(N)
+// deserialize: O(N) O(N)
 public class Codec {
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
