@@ -11,7 +11,6 @@ public class Codec {
         // preorder traversal
         preorder(root, encoded);
         
-        System.out.println(String.join(",", encoded));
         return String.join(",", encoded);
     }
     
