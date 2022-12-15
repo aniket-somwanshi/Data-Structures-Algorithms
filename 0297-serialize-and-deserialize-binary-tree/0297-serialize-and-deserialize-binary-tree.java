@@ -1,3 +1,5 @@
+// serialize: O(N) O(N)
+// deserialize: O(N) O(N)
 public class Codec {
 
     // Encodes a tree to a single string.
