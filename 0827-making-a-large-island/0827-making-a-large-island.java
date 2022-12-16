@@ -1,4 +1,5 @@
-// O(N*N + N*N) O(N*N)
+// O(N*N + N*N) O(N*N) 
+// DSU
 class Solution {
     private int[][] dirs = new int[][] {
         {0,1},{1,0},{-1,0},{0,-1}
