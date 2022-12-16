@@ -1,3 +1,4 @@
+// O(N*N + N*N) O(N*N)
 class Solution {
     private int[][] dirs = new int[][] {
         {0,1},{1,0},{-1,0},{0,-1}
