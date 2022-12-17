@@ -1,3 +1,5 @@
+// O(NlogN + MlogM + N*32 + N*32) O(N*32) N => nums.length, M => queries.length
+// Bit manipulation using TRIE
 class Query implements Comparable<Query> {
     int originalIndex;
     int num;
