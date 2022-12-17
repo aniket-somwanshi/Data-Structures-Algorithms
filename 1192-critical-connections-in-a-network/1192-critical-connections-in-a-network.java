@@ -1,3 +1,5 @@
+// O(V+E) O(V) 
+// find bridges in graph
 class Solution {
     public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
         // create adj list from adj matrix
