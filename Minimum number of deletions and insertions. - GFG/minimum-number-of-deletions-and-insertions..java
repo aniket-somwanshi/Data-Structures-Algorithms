@@ -35,43 +35,42 @@ public int minOperations(String str1, String str2)
     s2 = str2.toCharArray();
     n = s1.length;
     m = s2.length;
-    memo = new Integer[n][m];
-    return f(0,0);
+    int[][] dp = new int[n+1][m+1];
+    
+    // base case 
+    for (int i = 0; i <= n; i++) {
+        dp[i][m] = n-i;
+    }
+    for (int j = 0; j <= m; j++) {
+        dp[n][j] = m-j;
+    }
+    dp[n][m]=0;
+    
+    
+    for (int i = n-1; i >= 0; i--) {
+        for (int j = m-1; j >= 0; j--) {
+            // 3 cases
+            // insertion 
+            int candidate1 = dp[i][j+1];
+            candidate1 = candidate1 == Integer.MAX_VALUE ? Integer.MAX_VALUE : candidate1 + 1; 
+            
+            // deletion
+            int candidate2 = dp[i+1][j];
+            candidate2 = candidate2 == Integer.MAX_VALUE ? Integer.MAX_VALUE : candidate2 + 1; 
+        
+            
+            // move forward
+            int candidate3 = s1[i] == s2[j] ? 0 + dp[i+1][j+1] : Integer.MAX_VALUE;
+            
+            // answer is minimum of these 3 
+            
+            int res = Math.min(candidate1, Math.min(candidate2, candidate3));
+            
+            dp[i][j] = res;
+        }
+    }
+    
+    return dp[0][0];
 } 
-
-private int f(int i, int j) {
-    // base cases 
-    if (i == n && j == m) {
-        // everything matched
-        return 0;
-    }
-    if (i == n) {
-       return m-j;
-    }
-    if (j == m) {
-        return n-i;
-    }
-    
-    if (memo[i][j] != null) return memo[i][j];
-    
-    // 3 cases
-    // insertion 
-    int candidate1 = f(i,j+1);
-    candidate1 = candidate1 == Integer.MAX_VALUE ? Integer.MAX_VALUE : candidate1 + 1; 
-    
-    // deletion
-    int candidate2 = f(i+1, j);
-    candidate2 = candidate2 == Integer.MAX_VALUE ? Integer.MAX_VALUE : candidate2 + 1; 
-
-    
-    // move forward
-    int candidate3 = s1[i] == s2[j] ? 0 + f(i+1,j+1) : Integer.MAX_VALUE;
-    
-    // answer is minimum of these 3 
-    
-    int res = Math.min(candidate1, Math.min(candidate2, candidate3));
-    
-    return memo[i][j]=res;
-}
 
 }
