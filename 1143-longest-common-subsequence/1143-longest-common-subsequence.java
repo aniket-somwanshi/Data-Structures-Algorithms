@@ -9,28 +9,32 @@ class Solution {
         
         char[] s1 = S1.toCharArray();
         char[] s2 = S2.toCharArray();
-       int[][] dp = new int[n+1][m+1];
-    
-    // base cases
-    for (int i = 0; i < n+1; i++) dp[i][m] = 0;
-    for (int j = 0; j < m+1; j++) dp[n][j] = 0;
-    
-    for (int i = n-1; i >= 0; i--) {
-        for (int j = m-1; j >= 0; j--) {
-            int res = 0;
-            res = Math.max(res, dp[i+1][j]);
-            res = Math.max(res, dp[i][j+1]);
-            if (s1[i] == s2[j]) res = Math.max(res, dp[i+1][j+1] + 1);
-            
-            dp[i][j] = res;
+        int[] next = new int[m+1];
+        int[] curr = new int[m+1];
+        Arrays.fill(next, 0);
+        Arrays.fill(curr, 0);
+        // will work if n <= m
+
+        // base cases
+        // for (int i = 0; i < n+1; i++) dp[i][m] = 0;
+        for (int j = 0; j < m+1; j++) next[j] = 0;
+
+        for (int i = n-1; i >= 0; i--) {
+            curr = new int[m+1];
+            for (int j = m-1; j >= 0; j--) {
+                int res = 0;
+                // res = Math.max(res, next[j]);
+                // res = Math.max(res, curr[j+1]);
+                if (s1[i] == s2[j]) res = Math.max(res, next[j+1] + 1);
+                else res = Math.max(next[j], curr[j+1]);
+
+                curr[j] = res;
+            }
+            next = curr;
         }
-    }
-    
-    // LCS length
-    int lcsLength = dp[0][0];
 
         // LCS length
-        return lcsLength;
+        return next[0];
     }
 }
 
