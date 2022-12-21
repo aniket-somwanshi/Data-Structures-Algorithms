@@ -23,7 +23,7 @@ class Solution {
         
         for (int i = n-1; i >= 0; i--) {
             curr = new int[m+1];
-            curr[m] = 1;
+            curr[m] = 1; // cos dp[any][m] should be 1
             for (int j = m-1; j >= 0; j--) {
 
                 int res = 0;
