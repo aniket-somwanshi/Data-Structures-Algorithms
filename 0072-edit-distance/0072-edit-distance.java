@@ -1,4 +1,4 @@
-// O(N*M) O(N*M + N) -- dp bottom up
+// O(N*M) O(2M) -- dp bottom up
 class Solution {
     char[] s1;
     char[] s2;
@@ -9,44 +9,93 @@ class Solution {
         s2 = word2.toCharArray();
         n = s1.length;
         m = s2.length;
-        int[][] dp = new int[n+1][m+1];
+        int[] next = new int[m+1];
+        int[] curr = new int[m+1];
         
         // base case
         for (int j = 0; j < m+1; j++) {
-            dp[n][j] = m-j;
+            next[j] = m-j;
         }
-        for (int i = 0; i < n+1; i++) {
-            dp[i][m] = n-i;
-        }
-        
         
         for (int i = n-1; i >= 0; i--) {
+            curr = new int[m+1];
+            curr[m] = n-i;
             for (int j = m-1; j >= 0; j--) {
                 int res = Integer.MAX_VALUE;
         
-                int c1 = dp[i][j+1];
+                int c1 = curr[j+1];
                 c1 = c1 == Integer.MAX_VALUE ? Integer.MAX_VALUE : c1 + 1;
 
-                int c2 = dp[i+1][j];
+                int c2 = next[j];
                 c2 = c2 == Integer.MAX_VALUE ? Integer.MAX_VALUE : c2 + 1;
 
-                int c3 = dp[i+1][j+1];
+                int c3 = next[j+1];
                 c3 = c3 == Integer.MAX_VALUE ? Integer.MAX_VALUE : c3 + 1;
 
                 int c4 = Integer.MAX_VALUE;
-                c4 = s1[i] == s2[j] ? dp[i+1][j+1] : c4;
+                c4 = s1[i] == s2[j] ? next[j+1] : c4;
 
                 res = Math.min(c1, Math.min(c2, Math.min(c3, c4)));
                 
-                dp[i][j] = res;
+                curr[j] = res;
             }
+            next = curr;
         }
         
-        return dp[0][0];
+        return next[0];
     }
-    
    
 }
+
+
+// // O(N*M) O(N*M) -- dp bottom up
+// class Solution {
+//     char[] s1;
+//     char[] s2;
+//     int n;
+//     int m;
+//     public int minDistance(String word1, String word2) {
+//         s1 = word1.toCharArray();
+//         s2 = word2.toCharArray();
+//         n = s1.length;
+//         m = s2.length;
+//         int[][] dp = new int[n+1][m+1];
+        
+//         // base case
+//         for (int j = 0; j < m+1; j++) {
+//             dp[n][j] = m-j;
+//         }
+//         for (int i = 0; i < n+1; i++) {
+//             dp[i][m] = n-i;
+//         }
+        
+        
+//         for (int i = n-1; i >= 0; i--) {
+//             for (int j = m-1; j >= 0; j--) {
+//                 int res = Integer.MAX_VALUE;
+        
+//                 int c1 = dp[i][j+1];
+//                 c1 = c1 == Integer.MAX_VALUE ? Integer.MAX_VALUE : c1 + 1;
+
+//                 int c2 = dp[i+1][j];
+//                 c2 = c2 == Integer.MAX_VALUE ? Integer.MAX_VALUE : c2 + 1;
+
+//                 int c3 = dp[i+1][j+1];
+//                 c3 = c3 == Integer.MAX_VALUE ? Integer.MAX_VALUE : c3 + 1;
+
+//                 int c4 = Integer.MAX_VALUE;
+//                 c4 = s1[i] == s2[j] ? dp[i+1][j+1] : c4;
+
+//                 res = Math.min(c1, Math.min(c2, Math.min(c3, c4)));
+                
+//                 dp[i][j] = res;
+//             }
+//         }
+        
+//         return dp[0][0];
+//     }
+   
+// }
 
 
 // // O(N*M) O(N*M + N) -- memo top down
