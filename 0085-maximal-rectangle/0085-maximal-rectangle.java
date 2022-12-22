@@ -1,5 +1,4 @@
-
-// O()
+// O(N*M)
 class Solution {
     public int maximalRectangle(char[][] matrix) {
         int maxiArea = 0;
