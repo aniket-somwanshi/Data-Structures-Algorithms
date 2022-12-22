@@ -1,33 +1,45 @@
-// O(N*2) O(N*2 + N) -- memo
+// O(N*3*2) O(N*3*2 + N) --memo --topdown -- can be optimized further into tabulation
 class Solution {
+    int[] a;
+    int n;
+    Integer[][] memo;
     int fee;
-    public int maxProfit(int[] prices, int fee) {
-        int n = prices.length;
-        Integer[][] memo = new Integer[n][2];
-        // 0: can buy
-        // 1: can sell
+    public int maxProfit(int[] a, int fee) {
+        this.a = a;
+        n = a.length;
         this.fee = fee;
-        return recur(0, 0, prices, memo);
+        memo = new Integer[n][2];
+        return f(0, 0);
     }
     
-    private int recur(int i, int state, int[] prices, Integer[][] memo) {
-        if (i >= prices.length) return 0;
+    private int f(int i, int needToSell) {
+        // base cases
+        if (i == n) return 0;
         
-        if (memo[i][state] != null) return memo[i][state];
+        // caching
+        if (memo[i][needToSell] != null) return memo[i][needToSell];
         
-        int profit = 0;
-        if (state == 0) {
-            // buy
-            int buyNow = -prices[i] + recur(i+1, 1, prices, memo);
-            int buyLater = recur(i+1, 0, prices, memo);
-            profit = Math.max(buyNow, buyLater);
+        // exploration
+        int res = 0;
+        
+
+        // we have transactions left
+        if (needToSell == 1) {
+            // we need to sell this guy 
+            int candidate1 = -fee + a[i] + f(i+1, 0); // sell this
+            int candidate2 =  f(i+1, needToSell); // skip this
+
+            res = Math.max(res, Math.max(candidate1, candidate2));
         }
         else {
-            // sell
-            int sellNow = -fee + prices[i] + recur(i+1, 0, prices, memo);
-            int sellLater = recur(i+1, 1, prices, memo);
-            profit = Math.max(sellNow, sellLater);
+            // we need to buy
+            int candidate1 = -a[i] + f(i+1, 1); // buy this
+            int candidate2 = f(i+1, needToSell); // skip this
+
+            res = Math.max(res, Math.max(candidate1, candidate2));
         }
-        return memo[i][state] = profit;
+       
+        
+        return memo[i][needToSell] = res;
     }
 }
