@@ -1,3 +1,4 @@
+// O(N^2 * K) O(N^2 + N) -- memo -- top down -- can be optimized to space O(2N)
 class Solution {
     int[] a;
     int n;
