@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(1) 
     public boolean canJump(int[] nums) {
         int maxi = 0;
         int mini = 0;
