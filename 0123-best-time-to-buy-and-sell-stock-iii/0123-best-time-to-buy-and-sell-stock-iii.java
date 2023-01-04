@@ -1,3 +1,4 @@
+// O(N*3*2) O(N*3*2 + N) --memo --topdown -- can be optimized further into tabulation
 class Solution {
     int[] a;
     int n;
