@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(N)
     public int[][] insert(int[][] intervals, int[] newInterval) {
         // handle 0 intervals
         
