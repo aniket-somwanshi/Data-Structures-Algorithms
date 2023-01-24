@@ -1,4 +1,5 @@
 class Solution {
+    // O(N) O(N) -- 2 pointer
     public int lengthOfLongestSubstring(String s) {
         int n = s.length();
         int start = 0;
