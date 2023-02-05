@@ -1,7 +1,7 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
         int[] cnt = new int[128];
-        for (char c : p.toCharArray()) cnt[c]++;
+        for (char c: p.toCharArray()) cnt[c]++;
         
         List<Integer> ans = new ArrayList<>();
         int nChars = p.length();
