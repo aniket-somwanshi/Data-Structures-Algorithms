@@ -1,3 +1,4 @@
+// O(log(M+N)) O(1)
 class Solution {
     public double findMedianSortedArrays(int[] a1, int[] a2) {
         int n = a1.length;
