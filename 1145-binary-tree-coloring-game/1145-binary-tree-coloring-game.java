@@ -1,3 +1,4 @@
+// O(3N) O(N)
 class Solution {
     public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
         // for node x,
