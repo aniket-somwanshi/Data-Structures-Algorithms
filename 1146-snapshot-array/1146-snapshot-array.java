@@ -1,11 +1,9 @@
-
-
+// space: O(Set)
 class SnapshotArray {
     Map<Integer, Integer>[] map;
     int globalSnaps = 0;
     
-    
-    
+    // O(N)    
     public SnapshotArray(int length) {
         map = new HashMap[length];
         for (int i = 0; i < length; i++) {
@@ -13,14 +11,17 @@ class SnapshotArray {
         }
     }
     
+    // O(1)
     public void set(int index, int val) {
         map[index].put(globalSnaps, val);
     }
     
+    // O(1)
     public int snap() {
         return globalSnaps++;
     }
     
+    // O(Set)
     public int get(int index, int snap_id) {
         while (snap_id >= 0 && !map[index].containsKey(snap_id)) {
             snap_id--;
