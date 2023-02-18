@@ -14,7 +14,6 @@ class Solution {
             }
         }
         map.put('z', new int[] { 5, 0 });
-        f(map.get('f')[1]);
         
         
         
