@@ -1,4 +1,4 @@
-// O(target*N * K) O(target*N) -- dp
+// O(target*N * K) O(target*N) -- dp -- can be space optimized
 class Solution {
     private int MOD = 1000000007;
     private int k;
