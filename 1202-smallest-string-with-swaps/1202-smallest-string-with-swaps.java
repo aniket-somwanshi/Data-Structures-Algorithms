@@ -1,3 +1,4 @@
+// O(V+E + NlogN) O(N+E + 3N)
 class Solution {
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
         int n = s.length();
@@ -34,9 +35,6 @@ class Solution {
         visited[node] = true;
         
         // add to component
-        // System.out.println(node);
-        // System.out.println(a[node]);
-        // System.out.println();
         indices.add(node);
         chars.add(a[node]);
         
