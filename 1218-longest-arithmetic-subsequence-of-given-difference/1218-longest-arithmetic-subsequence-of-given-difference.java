@@ -1,4 +1,4 @@
-// O()
+// O(N) O(N) --dp
 class Solution {
     public int longestSubsequence(int[] a, int difference) {
         int n = a.length;
