@@ -1,4 +1,4 @@
-// O(N*M) O(N*M) -- M = maxlength of a single word 
+// O(NlogN + N*M) O(N*M) -- M = maxlength of a single word 
 // Prefix map lookup
 class Solution {
     public List<String> removeSubfolders(String[] folder) {
