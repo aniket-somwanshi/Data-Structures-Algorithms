@@ -35,7 +35,7 @@ class Solution {
             }
             
             // Candidate events for current day
-            while (i < n && events[i][0] == currentDay) {
+            while (i < n && events[i][0] <= currentDay) {
                 eventEndDayPQ.add(events[i][1]);
                 i++;
             }
