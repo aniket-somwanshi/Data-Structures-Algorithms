@@ -1,3 +1,4 @@
+// O(NlogN + MlogM + N + M) O(logN + logM)
 class Solution {
     public int matchPlayersAndTrainers(int[] players, int[] trainers) {
         int n = players.length;
