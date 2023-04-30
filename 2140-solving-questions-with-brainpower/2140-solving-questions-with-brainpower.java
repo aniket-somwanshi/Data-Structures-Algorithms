@@ -1,3 +1,4 @@
+// O(N) O(N)
 class Solution {
     int n;
     int[][] a;
