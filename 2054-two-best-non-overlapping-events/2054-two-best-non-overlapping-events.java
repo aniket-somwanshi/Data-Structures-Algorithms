@@ -1,3 +1,4 @@
+// O(NlogN) O(N)
 class Solution {
     public int maxTwoEvents(int[][] events) {
         int n = events.length;
