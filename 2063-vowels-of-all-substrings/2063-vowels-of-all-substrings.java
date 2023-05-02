@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public long countVowels(String word) {
         long res = 0;
