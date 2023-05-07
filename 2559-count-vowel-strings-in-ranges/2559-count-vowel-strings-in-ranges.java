@@ -1,3 +1,4 @@
+// O(N*2 + M) O(N) -- M = queries.length
 class Solution {
     public int[] vowelStrings(String[] words, int[][] queries) {
         int n = words.length;
