@@ -1,54 +1,107 @@
-// O(N*2) O(N*2) dp bottom up
-class Solution {
+// O(N*2) O(2) dp space optimization
+class Solution { 
     char[] a;
     int n;
     public int minFlipsMonoIncr(String s) {
         a = s.toCharArray();
         n = a.length;
-        Integer[][] dp = new Integer[n+1][2];
+        Integer[] dp = new Integer[2]; 
         
-        dp[n][0] = 0;
-        dp[n][1] = 0;
+        dp[0] = 0;
+        dp[1] = 0;
         
         for (int i = n-1; i >= 0; i--) {
+            Integer[] current = new Integer[2];
             for (int j = 0; j < 2; j++) {
                 int res = Integer.MAX_VALUE;
                 if (j == 1) {
                     if (a[i] == '0') {
                         // it's not matching the rule, so we must flip it
-                        res = Math.min(res, 1 + dp[i+1][j]);
+                        res = Math.min(res, 1 + dp[j]);
                     }
                     else {
                         // it should be a 1 and it is a 1 so no problem
-                        res = Math.min(res, dp[i+1][j]);
+                        res = Math.min(res, dp[j]);
                     }
                 }
 
                 if (j == 0) {
                     if (a[i] == '0') {
                         // it can be a zero, so it's just fine
-                        res = Math.min(res, dp[i+1][j]);
+                        res = Math.min(res, dp[j]);
                     }
                     else {
                         // it can be a zero, but it's a one
 
                         // case 1: it's a normal transition from 0s to 1s
-                        res = Math.min(res, dp[i+1][1]);
+                        res = Math.min(res, dp[1]);
 
                         // case 2: we want to continue the zeros streak, 
                         // so we make this into a zero, and continue that
-                        res = Math.min(res, 1 + dp[i+1][0]);
+                        res = Math.min(res, 1 + dp[0]);
                     }
                 }
                 
-                dp[i][j] = res;
+                current[j] = res;
             }
-        
+            dp = current;
         }
-        return dp[0][0];
+        return dp[0];
     }
     
 }
+
+// // O(N*2) O(N*2) dp bottom up
+// class Solution {
+//     char[] a;
+//     int n;
+//     public int minFlipsMonoIncr(String s) {
+//         a = s.toCharArray();
+//         n = a.length;
+//         Integer[][] dp = new Integer[n+1][2];
+        
+//         dp[n][0] = 0;
+//         dp[n][1] = 0;
+        
+//         for (int i = n-1; i >= 0; i--) {
+//             for (int j = 0; j < 2; j++) {
+//                 int res = Integer.MAX_VALUE;
+//                 if (j == 1) {
+//                     if (a[i] == '0') {
+//                         // it's not matching the rule, so we must flip it
+//                         res = Math.min(res, 1 + dp[i+1][j]);
+//                     }
+//                     else {
+//                         // it should be a 1 and it is a 1 so no problem
+//                         res = Math.min(res, dp[i+1][j]);
+//                     }
+//                 }
+
+//                 if (j == 0) {
+//                     if (a[i] == '0') {
+//                         // it can be a zero, so it's just fine
+//                         res = Math.min(res, dp[i+1][j]);
+//                     }
+//                     else {
+//                         // it can be a zero, but it's a one
+
+//                         // case 1: it's a normal transition from 0s to 1s
+//                         res = Math.min(res, dp[i+1][1]);
+
+//                         // case 2: we want to continue the zeros streak, 
+//                         // so we make this into a zero, and continue that
+//                         res = Math.min(res, 1 + dp[i+1][0]);
+//                     }
+//                 }
+                
+//                 dp[i][j] = res;
+//             }
+        
+//         }
+//         return dp[0][0];
+//     }
+    
+// }
 
 // // O(N*2) O(N*2 + N) memo
 // class Solution {
