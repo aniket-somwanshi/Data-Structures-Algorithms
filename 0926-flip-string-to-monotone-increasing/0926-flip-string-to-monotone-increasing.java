@@ -1,4 +1,4 @@
-// O(N*2) O(2) dp space optimization
+// O(N*2) O(2) dp space optimization => O(N) O(1)
 class Solution { 
     char[] a;
     int n;
