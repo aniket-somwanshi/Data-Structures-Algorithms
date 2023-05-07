@@ -18,7 +18,8 @@ class Solution {
             int cost = current[2];
             // update miniCost if reached end
                 if (x == r-1 && y == c-1) {
-                   return miniCost = Math.min(miniCost, cost);
+                   return
+                       miniCost = Math.min(miniCost, cost);
                 }
         
             for (int val = 1; val <= 4; val++) {
