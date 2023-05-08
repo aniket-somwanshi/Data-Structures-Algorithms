@@ -1,4 +1,4 @@
-// O(N*N) O(N + N) greedy
+// O(N) O(1) greedy
 // we should try to fit as much more numbers as possible in each parition!
 class Solution {
     public int minimumPartition(String s, int k) {
