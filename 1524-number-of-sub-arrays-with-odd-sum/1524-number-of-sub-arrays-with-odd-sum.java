@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public int numOfSubarrays(int[] a) {
         int n = a.length;
@@ -26,6 +27,8 @@ class Solution {
         return res;
     }
 }
+
+// O(N*100) O(N)
 //tle
 // class Solution {
 //     public int numOfSubarrays(int[] a) {
