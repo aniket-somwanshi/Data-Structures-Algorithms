@@ -1,3 +1,4 @@
+// O(3N) O(N)
 class Solution {
     public long dividePlayers(int[] skill) {
         int n = skill.length;
