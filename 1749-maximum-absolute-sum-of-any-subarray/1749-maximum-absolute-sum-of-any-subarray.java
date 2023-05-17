@@ -1,3 +1,4 @@
+// O(2N) O(1)
 class Solution {
     public int maxAbsoluteSum(int[] nums) {
         int n = nums.length;
@@ -10,9 +11,6 @@ class Solution {
             }
             maxi = Math.max(maxi, currentMaxSum);
         }
-        
-        System.out.println(maxi);
-        
         
         // flips signs
         for (int i = 0; i < n; i++) nums[i] = nums[i] * (-1);
@@ -27,7 +25,6 @@ class Solution {
             maxi = Math.max(maxi, currentMaxSum);
         }
         
-        System.out.println(maxi);
         
         return maxi;
     }
