@@ -1,3 +1,4 @@
+// O(NlogN + N) O(N)
 class Solution {
     public int longestSquareStreak(int[] nums) {
         int n = nums.length;
