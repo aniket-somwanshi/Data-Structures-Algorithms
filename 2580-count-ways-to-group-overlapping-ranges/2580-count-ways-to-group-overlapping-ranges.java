@@ -14,7 +14,7 @@ class Solution {
         System.out.println(distincts);
         int a=1;
         for(int i=0;i<distincts;i++){
-            a=(int)((1L * a*2)% 1000000007);
+            a=(int)(1L * a*2% 1000000007);
         }
         return a;
     }
