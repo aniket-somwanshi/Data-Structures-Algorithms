@@ -17,7 +17,6 @@ class Solution {
         // traverse each component
         boolean[] visited = new boolean[n+1];
         dfs(1, adj, visited);
-        // dfs(n, adj, visited);
         return miniEdge;
     }
     
