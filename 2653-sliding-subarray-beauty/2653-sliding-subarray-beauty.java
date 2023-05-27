@@ -1,3 +1,4 @@
+// O(N-K+1) O(101)
 class Solution {
     int X;
     public int[] getSubarrayBeauty(int[] nums, int k, int x) {
