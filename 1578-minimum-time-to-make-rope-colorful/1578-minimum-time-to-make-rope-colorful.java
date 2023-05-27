@@ -1,24 +1,27 @@
 class Solution {
     public int minCost(String colors, int[] neededTime) {
-        // totalTime: total time needed to make rope colorful;
-        // currMaxTime: maximum time of a balloon needed.
-        int totalTime = 0, currMaxTime = 0;
-        
-        // For each balloon in the array:
-        for (int i = 0; i < colors.length(); ++i) {
-            // If this balloon is the first balloon of a new group
-            // set the currMaxTime as 0.
-            if (i > 0 && colors.charAt(i) != colors.charAt(i - 1)) {
-                currMaxTime = 0;
+        int n = neededTime.length;
+        int totalCost = 0;
+        int i = 0;
+        while (i < n) {
+            char current = colors.charAt(i);
+            int count = 0;
+            int maxi = Integer.MIN_VALUE;
+            int sum = 0;
+            while (i < n && current == colors.charAt(i)) {
+                System.out.print(i);
+                sum += neededTime[i];
+                maxi = Math.max(maxi, neededTime[i]);
+                count++;
+                i++;
             }
-            
-            // Increment totalTime by the smaller one.
-            // Update currMaxTime as the larger one.
-            totalTime += Math.min(currMaxTime, neededTime[i]);
-            currMaxTime = Math.max(currMaxTime, neededTime[i]);
-        }
+            System.out.println();
+            if (count >= 2) {
+                
+                totalCost += (sum - maxi);
+            }
+        } 
         
-        // Return totalTime as the minimum removal time.
-        return totalTime;
+        return totalCost;
     }
 }
