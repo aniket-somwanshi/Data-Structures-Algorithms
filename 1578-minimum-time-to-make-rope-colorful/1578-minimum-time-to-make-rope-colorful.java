@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public int minCost(String colors, int[] neededTime) {
         int n = neededTime.length;
@@ -9,15 +10,12 @@ class Solution {
             int maxi = Integer.MIN_VALUE;
             int sum = 0;
             while (i < n && current == colors.charAt(i)) {
-                System.out.print(i);
                 sum += neededTime[i];
                 maxi = Math.max(maxi, neededTime[i]);
                 count++;
                 i++;
             }
-            System.out.println();
             if (count >= 2) {
-                
                 totalCost += (sum - maxi);
             }
         } 
