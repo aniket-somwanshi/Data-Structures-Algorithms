@@ -1,3 +1,4 @@
+// O(3N) O(2N)
 class Solution {
     public int longestSubarray(int[] nums) {
         int n = nums.length;
