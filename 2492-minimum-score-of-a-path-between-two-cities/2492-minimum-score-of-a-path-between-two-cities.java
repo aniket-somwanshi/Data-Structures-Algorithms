@@ -1,3 +1,4 @@
+// O(V*E) O(V)
 class Solution {
     int miniEdge = Integer.MAX_VALUE;
     public int minScore(int n, int[][] roads) {
