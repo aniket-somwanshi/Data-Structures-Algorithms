@@ -1,3 +1,4 @@
+// O(N+E + N+E + N) O(N+E + N)
 class Solution {
     List<List<Integer>> adj;
     int n;
