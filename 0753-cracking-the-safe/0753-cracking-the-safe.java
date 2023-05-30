@@ -1,3 +1,4 @@
+// O(k^n) O(k^n)
 class Solution {
     int numberOfPasswords;
     int k; int n;
