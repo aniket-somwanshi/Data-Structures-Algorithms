@@ -1,3 +1,4 @@
+// O(2N) O(N) -- can be made O(N) O(1)
 class Solution {
     public int waysToMakeFair(int[] a) {
         int n = a.length;
