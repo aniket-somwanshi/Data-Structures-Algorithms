@@ -1,3 +1,4 @@
+// O(N + N) O(N)
 class Solution {
     public int findSubstringInWraproundString(String s) {
         int n = s.length();
