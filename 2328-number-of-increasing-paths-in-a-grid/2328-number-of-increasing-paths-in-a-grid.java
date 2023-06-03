@@ -1,4 +1,4 @@
-// O(N*M) O(N*M)
+// O(N*M) O(N*M) memo
 class Solution {
     int n;
     int m;
