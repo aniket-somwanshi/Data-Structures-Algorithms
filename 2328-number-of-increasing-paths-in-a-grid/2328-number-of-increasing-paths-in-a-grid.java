@@ -1,3 +1,4 @@
+// O(N*M) O(N*M)
 class Solution {
     int n;
     int m;
