@@ -1,4 +1,4 @@
-// O(N*M) O(N*M) -- memo
+// O(N*M*M) O(N*M) -- memo
 class Solution {
     Integer[][] memo;
     int[][] a;
