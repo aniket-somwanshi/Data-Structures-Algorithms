@@ -1,3 +1,6 @@
+// O(2(V+E) + N) O(4N) 
+// topo sort for grps and  
+// topo sort for items in grp
 class Solution {
     List<List<Integer>> adj;
     int n;
