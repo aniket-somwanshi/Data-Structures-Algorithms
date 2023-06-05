@@ -1,4 +1,4 @@
-// O(N*M + M) O(N*M + M)
+// O(N*M) O(N*M + M)
 class Solution {
     Integer[][] memo;
     int n;
