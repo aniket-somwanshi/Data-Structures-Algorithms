@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public int[] cycleLengthQueries(int n, int[][] queries) {
         int m = queries.length;
