@@ -1,4 +1,4 @@
-// O(1) O(1) O(1) sc: O(N)
+// tc: O(1) O(1) O(1) sc: O(N)
 class BrowserHistory {
     int currentIndex;
     int currentSize;
