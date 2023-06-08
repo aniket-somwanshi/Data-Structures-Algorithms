@@ -15,14 +15,19 @@ class Solution {
             }
         }
         
-        PriorityQueue<Integer> pq = new PriorityQueue<>(); // [num, freq]
+        PriorityQueue<int[]> pq = new PriorityQueue<>((x,y)->x[1]-y[1]); // [num, freq]
         
-        for (int num: map.keySet()) pq.add(map.get(num));
+        for (int num: map.keySet()) pq.add(new int[] {num, map.get(num)});
         
-        while (k > 0 && !pq.isEmpty()) {
-            k -= pq.poll();
+        while (k > 0) {
+            int[] curr = pq.poll();
+            if (curr[1] <= k) {
+                k -= curr[1];
+                c--;
+            }
+            else break;
         }
         
-        return k < 0 ? pq.size()+1 : pq.size();
+        return c;
     }
 }
