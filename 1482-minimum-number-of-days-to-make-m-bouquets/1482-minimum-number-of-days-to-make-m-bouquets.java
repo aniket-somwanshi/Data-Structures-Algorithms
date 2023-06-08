@@ -1,46 +1,101 @@
+// O(N*M) O(N*M + N) -memo
 class Solution {
-    public int minDays(int[] bloomDay, int m, int k) {
-        // bloomDay[i]: this flower is available from this day onwards
-        // m: number of bouquets needed
-        // k: adjacent flowers needed for a single bouquet
-        // days: number of days we have waited
+    int n;
+    int k;
+    int[] a;
+    int m;
+    Integer[][] memo;
+    public int minDays(int[] a, int m, int k) {
+        this.a = a;
+        this.n = a.length;
+        this.k = k;
+        this.m = m;
         
-        // if number of flowes we have are less than that we need
-        if (bloomDay.length <  m * k) return -1;
+        int mini = Integer.MAX_VALUE;
+        int maxi = Integer.MIN_VALUE;
         
-        int left = 1;
-        int right = getMax(bloomDay);
+        for (int num: a) mini = Math.min(mini, num);
+        for (int num: a) maxi = Math.max(maxi, num);
+
+        // base case of impossible
+        if (n < m * k) return -1;
         
-        // binary search to get the minumum waiting days that gives us required bouquets
+        int left = mini;
+        int right = maxi;
+        
+        int res = Integer.MAX_VALUE;
         while (left <= right) {
             int mid = left + (right - left)/2;
-            if (isValid(mid, bloomDay, m, k)) right = mid - 1;
-            else left = mid + 1;
-        }
-        return left;
-    }
-    
-    private boolean isValid(int days, int[] bloomDay, int m, int k) {
-        int currentFlowers = 0;
-        for (int i = 0; i < bloomDay.length && m > 0; i++) {
-            if (bloomDay[i] <= days) {
-                currentFlowers++;
-                if (currentFlowers == k) {
-                    m--;
-                    currentFlowers = 0;
-                }
+            if (isPossible(mid)) {
+                res = mid;
+                right = mid - 1;
             }
             else {
-                currentFlowers = 0;
+                left = mid + 1;
             }
         }
-        return m == 0;
+        return res == Integer.MAX_VALUE?-1:res;
     }
     
-    private int getMax(int[] a) {
-        int maxi = Integer.MIN_VALUE;
-        for (int num: a) maxi = Math.max(maxi, num);
-        return maxi;
+    private boolean isPossible(int d) {
+        int f = 0;
+        int b = 0;
+        for (int num: a) {
+            if (num <= d) {
+                f++;
+            }
+            else {
+                f = 0;
+            }
+            
+            
+            if (f == k) {
+                b++;
+                f = 0;
+            }
+            if (b==m) break;
+        }
+        return b==m;
     }
     
 }
+
+
+// // O(N*M) O(N*M + N) -memo
+// class Solution {
+//     int n;
+//     int k;
+//     int[] a;
+//     Integer[][] memo;
+//     public int minDays(int[] a, int m, int k) {
+//         this.a = a;
+//         this.n = a.length;
+//         this.k = k;
+        
+//         memo = new Integer[n][m+1];
+//         int ans = f(0, m);
+//         return (ans == Integer.MAX_VALUE) ? -1 : ans;
+//     }
+    
+//     private int f(int index, int m) {
+//         // base
+//         if (index >= n) return m == 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+//         if (m == 0) return Integer.MIN_VALUE;
+        
+//         if (memo[index][m] != null) return memo[index][m];
+            
+//         if (index + k - 1 >= n) return Integer.MAX_VALUE;
+        
+//         // take this
+//         int maxi = Integer.MIN_VALUE;
+//         for (int i = index; i < index + k; i++) {
+//             maxi = Math.max(maxi, a[i]);
+//         }
+//         int c1 = Math.max(maxi, f(index + k, m-1));
+        
+//         // not take this
+//         int c2 = f(index + 1, m);
+        
+//         return memo[index][m] = Math.min(c1, c2);
+//     }
+// }
