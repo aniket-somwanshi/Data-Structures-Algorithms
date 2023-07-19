@@ -1,23 +1,25 @@
 class Solution {
-    // O(NlogN + N) O(N)
-    public int eraseOverlapIntervals(int[][] a) {
-        Arrays.sort(a, (a1, a2) -> a1[0] - a2[0]);
-        int n = a.length;
-        
-        int[] current = a[0];
-        int c = 0;
-        
+    public int eraseOverlapIntervals(int[][] intervals) {
+        int n = intervals.length;
+        Arrays.sort(intervals, (a,b)->a[0]-b[0]);
+        int prev = 0;
+        int count = 0;
         for (int i = 1; i < n; i++) {
-            if (current[0] <= a[i][0] && a[i][0] < current[1]) {
-                c++;
-                current = a[i][1] < current[1] ? a[i] : current;
+            if (intervals[prev][0] <= intervals[i][0] && 
+               intervals[i][0] < intervals[prev][1]) {
+                count++;
+                
+                if (intervals[prev][1] >= intervals[i][1]) {
+                    prev = i;   
+                }
+                else {
+                    prev = prev;
+                }
             }
             else {
-                current = a[i];
+                prev = i;
             }
-            
-            
         }
-        return c;
+        return count;
     }
 }
