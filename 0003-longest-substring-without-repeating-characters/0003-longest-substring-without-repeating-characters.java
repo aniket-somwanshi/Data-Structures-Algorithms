@@ -1,22 +1,29 @@
 class Solution {
-    // O(N) O(N) -- 2 pointer
     public int lengthOfLongestSubstring(String s) {
-        int n = s.length();
-        int start = 0;
-        int end = 0;
         char[] a = s.toCharArray();
-        if (s == null || s.length() == 0) return 0;
-        int maxi = 1;
-        Map<Character, Integer> map = new HashMap<>();
-        while (end < n) {
-            if (map.containsKey(a[end]) && map.get(a[end]) >= start) {
-                start = map.get(a[end]) + 1;
+        int n = a.length;
+        int maxiLength = 0;
+        int r = 0;
+        int l = 0;
+        int[] freq = new int[256];
+        while (r < n) {
+            freq[a[r]]++;
+            if (!isValid(freq)) {
+                while (!isValid(freq)) {
+                    freq[a[l]]--;
+                    l++;
+                }
             }
-            map.put(a[end], end);
-            maxi = Math.max(maxi, end - start + 1);
-            end++;
+            maxiLength = Math.max(maxiLength, r - l + 1);
+            r++;
         }
-        
-        return maxi;
+        return maxiLength;
+    }
+    
+    private boolean isValid(int[] freq) {
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] > 1) return false;
+        }
+        return true;
     }
 }
