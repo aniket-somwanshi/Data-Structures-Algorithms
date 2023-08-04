@@ -1,3 +1,4 @@
+// O(N) O(N)
 class Solution {
     Integer[] memo = new Integer[46];
     public int climbStairs(int n) {
