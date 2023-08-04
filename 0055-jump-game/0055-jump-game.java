@@ -1,13 +1,10 @@
 class Solution {
-    // O(N) O(1) 
     public boolean canJump(int[] nums) {
-        int maxi = 0;
-        int mini = 0;
-        while (mini <= maxi && maxi < nums.length-1) {
-            maxi = Math.max(maxi, mini + nums[mini]);
-            mini++;
+        int maxCoverageIndex = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (maxCoverageIndex < i) return false;
+            maxCoverageIndex = Math.max(maxCoverageIndex, i + nums[i]);
         }
-        
-        return maxi >= nums.length-1;
+        return true;
     }
 }
