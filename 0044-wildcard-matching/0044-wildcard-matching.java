@@ -1,3 +1,4 @@
+// O(N*N) O(N*N)
 class Solution {
     char[] s;
     char[] p;
