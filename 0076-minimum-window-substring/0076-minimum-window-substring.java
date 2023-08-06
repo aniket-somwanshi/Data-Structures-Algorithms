@@ -1,50 +1,44 @@
-// O(2(N+M)) O(2*(256)) -- sliding window
-// maintain sliding window which has valid freq as desired
-// when found a valid window, try to shrink it from front
-// to get an even smaller window
 class Solution {
-    public String minWindow(String s, String t) {
-        int n = s.length();
-        char[] a = s.toCharArray();
-        char[] target = t.toCharArray();
+    public String minWindow(String S, String T) {
+        char[] s = S.toCharArray();
+        char[] t = T.toCharArray();
         
-        // maps
-        int[] freq = new int[256];
         int[] targetFreq = new int[256];
         
-        // get target's frequencies
-        for (int i = 0; i < target.length; i++) {
-            targetFreq[target[i]]++;
+        for (char c: t) {
+            targetFreq[c]++;
         }
         
+        int resI = 0;
+        int resJ = 0;
         
         int i = 0;
         int j = 0;
+        int minSize = Integer.MAX_VALUE;
         
-        int[] mini = new int[] { Integer.MAX_VALUE }; // { mini, start, end }
-        
-        while (j < n) {
-            freq[a[j]]++;
-            // if we have found a valid winodw, 
-            // update the res and try to shrink the window to get a better ans
-            // do this till make the window invalid again
-            while (i <= j && isValid(freq, targetFreq)) {
-                if (j-i+1 < mini[0]) {
-                    mini = new int[] {j-i+1, i, j};
+        int[] currentFreq = new int[256];
+        while (j < s.length) {
+            currentFreq[s[j]]++;
+            while (isValid(currentFreq, targetFreq)) {
+                // update res
+                if (j-i+1 < minSize) {
+                    minSize = j-i+1;
+                    resI = i;
+                    resJ = j;
                 }
-                freq[a[i]]--;
+                currentFreq[s[i]]--;
                 i++;
             }
-            // at this point the window is invalid
             j++;
         }
         
-        return mini[0] == Integer.MAX_VALUE ? "" : s.substring(mini[1], mini[2]+1);
+        if (minSize == Integer.MAX_VALUE) return "";
+        return S.substring(resI, resJ+1);
     }
     
-    private boolean isValid(int[] freq, int[] targetFreq) {
-        for (int i = 0; i < freq.length; i++) {
-            if (freq[i] < targetFreq[i]) return false;
+    private boolean isValid(int[] f, int[] t) {
+        for (int i = 0; i < 256; i++) {
+            if (f[i] < t[i]) return false; 
         }
         return true;
     }
