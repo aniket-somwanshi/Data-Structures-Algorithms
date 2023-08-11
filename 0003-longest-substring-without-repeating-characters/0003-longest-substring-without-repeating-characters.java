@@ -1,3 +1,4 @@
+// O(N) O(256)
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         char[] a = s.toCharArray();
