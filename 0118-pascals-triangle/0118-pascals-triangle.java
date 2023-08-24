@@ -1,24 +1,27 @@
 class Solution {
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> res = new ArrayList<>();
-        
-        // initialize res until numRows
         for (int i = 0; i < numRows; i++) res.add(new ArrayList<>());
         
-        for (int i = 0; i < numRows; i++) {
-            if (i == 0) {
-                res.get(i).add(1);
-                continue;
+        res.get(0).add(1);
+        if (numRows == 1) return res;
+        
+        res.get(1).add(1);
+        res.get(1).add(1);
+        if (numRows == 2) return res;
+        
+        for (int row = 2; row < numRows; row++) {
+            // first element is always 1
+            res.get(row).add(1);
+            
+            // add all the intermediate elements
+            // they are indices [1, row-1]
+            for (int i = 1; i <= row-1; i++) {
+                res.get(row).add(res.get(row-1).get(i)+res.get(row-1).get(i-1));
             }
-            if (i == 1) {
-                res.get(i).add(1);
-                res.get(i).add(1);
-                continue;
-            }
-            for (int j = 0; j <= i; j++) {
-                if (j == 0 || j == i) res.get(i).add(1); 
-                else res.get(i).add(res.get(i-1).get(j-1) + res.get(i-1).get(j));
-            }
+            
+            // last element is always 1
+            res.get(row).add(1);
         }
         
         return res;
