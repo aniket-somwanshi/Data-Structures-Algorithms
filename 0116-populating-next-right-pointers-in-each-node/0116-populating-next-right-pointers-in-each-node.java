@@ -1,3 +1,4 @@
+// O(N) O(N)
 class Solution {
     public Node connect(Node root) {
         if (root == null) return root;
