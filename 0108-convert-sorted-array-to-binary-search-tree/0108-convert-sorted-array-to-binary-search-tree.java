@@ -13,7 +13,7 @@
  *     }
  * }
  */
-// O(N) O(N)
+// O(N) O(logN)
 class Solution {
     public TreeNode sortedArrayToBST(int[] nums) {
         return buildBalancedBST(0, nums.length-1, nums);
