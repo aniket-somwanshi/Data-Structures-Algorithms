@@ -1,57 +1,31 @@
-// O(N) O(H) -- iterative 
-// inorder -- in an inorder travsersal, elements should be in increasing order, so if a node is not increasing, return false
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        if (root == null) return true;
+        return f(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+    
+    private boolean f(TreeNode node, long low, long high) {
+        if (node == null) return true;
         
-        Stack<TreeNode> s = new Stack<>();
-        TreeNode node = root;
-        TreeNode previous = null;
+        // check if current node is in between the [low, high]
         
-        while (!s.isEmpty() || node != null) {
-            // push lefts first
-            while (node != null) {
-                s.push(node);
-                node = node.left;
-            }
-            
-            // do 
-            node = s.pop();
-            if (previous != null && node.val <= previous.val) return false;
-            
-            // go to right
-            previous = node;
-            node = node.right;
+        if (low < node.val && node.val < high) {
+            return f(node.left, low, node.val) && f(node.right, node.val, high);
         }
-        return true;
+        return false;
     }
 }
-
-
-
-
-
-
-
-// O(N) O(H) -- recursive
-// class Solution {
-//     public boolean isValidBST(TreeNode root) {
-//         return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
-//     }
-    
-//     private boolean validate(TreeNode node, long mini, long maxi) {
-//         if (node == null) return true;
-        
-//         if (node.val <= mini) {
-//             System.out.println(node.val + "<=" + mini);
-//             return false;
-//         }
-//         if (node.val >= maxi) {
-//             System.out.println(node.val + ">=" + maxi);
-//             return false;
-//         }
-        
-//         return validate(node.left, mini, node.val)
-//             && validate(node.right, node.val, maxi);
-//     }
-// }
