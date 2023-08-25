@@ -1,3 +1,4 @@
+// O(N*N + N*N) O(N*N + N)
 class Solution {
     Boolean[][] memo;
     String s;
