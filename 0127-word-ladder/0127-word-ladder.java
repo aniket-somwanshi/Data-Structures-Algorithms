@@ -1,194 +1,37 @@
-// O(N^2 + N^2) O(N^2)
-// adjacency list created using hashmap
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        // check if destination words exists in wordList
-        boolean containsEndWord = false;
-        for (String word: wordList) {
-            if (word.equals(endWord)) {
-                containsEndWord = true;
-                break;
-            }
-        }
+        Set<String> set = new HashSet<>();
+        for (String s: wordList) set.add(s);
         
-        if (!containsEndWord) return 0;
-        
-        // create adjacency list
-        // include beginWord also
-        String[] newWordList = new String[wordList.size()+1];
-        newWordList[0] = beginWord;
-        for (int i = 1; i < newWordList.length; i++) {
-            newWordList[i] = wordList.get(i-1);
-        }
-        
-        List<List<Integer>> adj = getAdjacencyList(newWordList);
-        
-        /// get shorstest path distance from source to destination
-        // find destination index
-        int destination = -1;
-        for (int i = 0; i < newWordList.length; i++) 
-            if (newWordList[i].equals(endWord)) 
-                destination = i;
-        
-        return getShortestDistance(adj, 0, destination);
-    }
+        int res = 0;
+        Queue<String> q = new LinkedList<>(); 
+        int level = 1;
+        q.add(beginWord);
     
-    private int getShortestDistance(List<List<Integer>> adj, int src, int dest) {
-        /// bfs
-        int n = adj.size();
-        
-        int[] distance = new int[n];
-        boolean[] visited = new boolean[n];
-        Arrays.fill(distance, Integer.MAX_VALUE);
-        
-        Queue<Integer> q = new LinkedList<>();
-        
-        q.add(src);
-        visited[src] = true;
-        distance[src] = 0;
+        Set<String> visited = new HashSet<>();
+        visited.add(beginWord);
         
         while (!q.isEmpty()) {
-            int current = q.poll();
-            for (int nb: adj.get(current)) {
-                if (visited[nb]) continue;
-                
-                distance[nb] = distance[current] + 1;
-                visited[nb] = true;
-                
-                q.add(nb);
-            }
-        }
-        
-        return distance[dest] == Integer.MAX_VALUE ? 0 : distance[dest]+1;
-    }
-    
-    private List<List<Integer>> getAdjacencyList(String[] a) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < a.length; i++) adj.add(new ArrayList<>());
-        
-        Map<String, Integer> map = new HashMap<>();
-        for (int i = 0; i < a.length; i++) {
-            map.put(a[i], i);
-        }
-        
-        // try changing every letter one at a time so as to get a different string 
-        // which is there in wordList
-        for (int i = 0; i < a.length; i++) {
-            char[] current = a[i].toCharArray();
-            for (int j = 0; j < current.length; j++) {
-                for (char c='a'; c<='z'; c++) {
-                    char temp = current[j];
-                    current[j] = c;
-                    String check = new String(current);
-                    if (map.containsKey(check)) {
-                        adj.get(i).add(map.get(check));
+            int size = q.size();
+            while (size-- > 0) {
+                String curr = q.poll();
+                if (curr.equals(endWord)) return level;
+
+                for (int i = 0; i < curr.length(); i++) {
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        char[] a = curr.toCharArray();
+                        a[i] = c;
+                        String potential = String.valueOf(a);
+                        if (set.contains(potential) && !visited.contains(potential)) {
+                            q.add(potential);
+                            visited.add(potential);
+                        }
                     }
-                    // put the char back, as we can only change one char
-                    current[j] = temp;
                 }
             }
+            level++;
         }
         
-        return adj;
+        return res;
     }
-    
-    private boolean canTransform(String a, String b) {
-        int differentCharacters = 0;
-        for (int i = 0; i < a.length(); i++) {
-            if (a.charAt(i) != b.charAt(i)) differentCharacters++;
-        }
-        return differentCharacters == 1;
-    }
-    
 }
-
-
-
-// // O(N^2 + N^2) O(N^2)
-// class Solution {
-//     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-//         // check if destination words exists in wordList
-//         boolean containsEndWord = false;
-//         for (String word: wordList) {
-//             if (word.equals(endWord)) {
-//                 containsEndWord = true;
-//                 break;
-//             }
-//         }
-        
-//         if (!containsEndWord) return 0;
-        
-//         // create adjacency list
-//         // include beginWord also
-//         String[] newWordList = new String[wordList.size()+1];
-//         newWordList[0] = beginWord;
-//         for (int i = 1; i < newWordList.length; i++) {
-//             newWordList[i] = wordList.get(i-1);
-//         }
-        
-//         List<List<Integer>> adj = getAdjacencyList(newWordList);
-        
-//         /// get shorstest path distance from source to destination
-//         // find destination index
-//         int destination = -1;
-//         for (int i = 0; i < newWordList.length; i++) 
-//             if (newWordList[i].equals(endWord)) 
-//                 destination = i;
-        
-//         return getShortestDistance(adj, 0, destination);
-//     }
-    
-//     private int getShortestDistance(List<List<Integer>> adj, int src, int dest) {
-//         /// bfs
-//         int n = adj.size();
-        
-//         int[] distance = new int[n];
-//         boolean[] visited = new boolean[n];
-//         Arrays.fill(distance, Integer.MAX_VALUE);
-        
-//         Queue<Integer> q = new LinkedList<>();
-        
-//         q.add(src);
-//         visited[src] = true;
-//         distance[src] = 0;
-        
-//         while (!q.isEmpty()) {
-//             int current = q.poll();
-//             for (int nb: adj.get(current)) {
-//                 if (visited[nb]) continue;
-                
-//                 distance[nb] = distance[current] + 1;
-//                 visited[nb] = true;
-                
-//                 q.add(nb);
-//             }
-//         }
-        
-//         return distance[dest] == Integer.MAX_VALUE ? 0 : distance[dest]+1;
-//     }
-    
-//     private List<List<Integer>> getAdjacencyList(String[] a) {
-//         List<List<Integer>> adj = new ArrayList<>();
-//         for (int i = 0; i < a.length; i++) adj.add(new ArrayList<>());
-        
-//         for (int i = 0; i < a.length; i++) {
-//             for (int j = i+1; j < a.length; j++) {
-//                 if (canTransform(a[i], a[j])) {
-//                     adj.get(i).add(j);
-//                     adj.get(j).add(i);
-//                 }
-//             }
-//         }
-        
-//         return adj;
-//     }
-    
-//     private boolean canTransform(String a, String b) {
-//         int differentCharacters = 0;
-//         for (int i = 0; i < a.length(); i++) {
-//             if (a.charAt(i) != b.charAt(i)) differentCharacters++;
-//         }
-//         return differentCharacters == 1;
-//     }
-    
-// }
