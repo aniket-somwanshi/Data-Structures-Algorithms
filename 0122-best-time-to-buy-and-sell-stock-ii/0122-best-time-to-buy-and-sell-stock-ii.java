@@ -1,66 +1,26 @@
-// O(N*2) O(N*2) -- dp
 class Solution {
+    Integer[][] memo;
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        int[][] dp = new int[n+1][2];
-        // 0: can buy
-        // 1: can sell
-        
-        dp[n][0] = 0;
-        dp[n][1] = 0;
-        
-        for (int i = n-1; i >= 0; i--) {
-            for (int state = 0; state <= 1; state++) {
-                int profit = 0;
-                if (state == 0) {
-                    // buy
-                    int buyNow = -prices[i] + dp[i+1][1];
-                    int buyLater = dp[i+1][0];
-                    profit = Math.max(buyNow, buyLater);
-                }
-                else {
-                    // sell
-                    int sellNow = +prices[i] + dp[i+1][0];
-                    int sellLater = dp[i+1][1];
-                    profit = Math.max(sellNow, sellLater);
-                }
-                dp[i][state] = profit;
-            }
-        }
-        return dp[0][0];
+        memo = new Integer[n][2]; // [index][state] => index: [0,n-1], state: [0,1]
+        return getMaxProfit(0, 0, prices);
     }
     
-    
+    private int getMaxProfit(int index, int state, int[] prices) {
+        if (index == prices.length) return 0;
+        
+        if (memo[index][state] != null) return memo[index][state];
+        
+        int profit = 0;
+        
+        if (state == 0) {
+            profit = Math.max(profit, -prices[index] + getMaxProfit(index + 1, 1, prices));
+        }
+        else {
+            profit = Math.max(profit, prices[index] + getMaxProfit(index + 1, 0, prices));
+        }
+        profit = Math.max(profit, getMaxProfit(index + 1, state, prices));
+        
+        return memo[index][state] = profit;
+    }
 }
-
-// // O(N*2) O(N*2 + N) -- memo
-// class Solution {
-//     public int maxProfit(int[] prices) {
-//         int n = prices.length;
-//         Integer[][] memo = new Integer[n][2];
-//         // 0: can buy
-//         // 1: can sell
-//         return recur(0, 0, prices, memo);
-//     }
-    
-//     private int recur(int i, int state, int[] prices, Integer[][] memo) {
-//         if (i >= prices.length) return 0;
-        
-//         if (memo[i][state] != null) return memo[i][state];
-        
-//         int profit = 0;
-//         if (state == 0) {
-//             // buy
-//             int buyNow = -prices[i] + recur(i+1, 1, prices, memo);
-//             int buyLater = recur(i+1, 0, prices, memo);
-//             profit = Math.max(buyNow, buyLater);
-//         }
-//         else {
-//             // sell
-//             int sellNow = +prices[i] + recur(i+1, 0, prices, memo);
-//             int sellLater = recur(i+1, 1, prices, memo);
-//             profit = Math.max(sellNow, sellLater);
-//         }
-//         return memo[i][state] = profit;
-//     }
-// }
