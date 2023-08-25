@@ -1,66 +1,46 @@
 class Solution {
-    // O(N*2^N, O(N*N))
-    // Backtracking + dp 
-    // find if the string is palindrome, in O(1) time, 
-    // by storing in dp array
+    Boolean[][] memo;
+    String s;
     public List<List<String>> partition(String s) {
-        List<List<String>> res = new LinkedList<>();
-        if (s == "") return res;
-        int n = s.length();
-        List<String> current = new LinkedList<>();
-        boolean[][] dp = new boolean[n][n];
-        int index = 0;
-        partitionUtil(index, s.length(), s, current, res, dp);
+        this.s = s;
+        char[] a = s.toCharArray();
+        int n = a.length;
+        memo = new Boolean[n][n];
+        f(0, n-1, a);
+        
+        List<List<String>> res = new ArrayList<>();
+        List<String> current = new ArrayList<>();
+        p(0, current, res, a);
         return res;
     }
     
-    private void partitionUtil(int index, int n, String s, List<String> current, List<List<String>> res, boolean[][] dp) {
-        if (index == n) {
-            res.add(new ArrayList<String>(current));
+    private void p(int i, List<String> current, List<List<String>> res, char[] a) {
+        if (i == a.length) {
+            res.add(new ArrayList<>(current));
             return;
         }
-        for (int i = index; i < n; i++) {
-            if (s.charAt(index) == s.charAt(i) && (i - index <= 2 || dp[index+1][i-1])) {
-                dp[index][i] = true;
-                current.add(s.substring(index, i+1));
-                partitionUtil(i + 1, n, s, current, res, dp);
+        
+        for (int j = i; j < a.length; j++) {
+            if (memo[i][j]) {
+                current.add(s.substring(i, j+1));
+                p(j+1, current, res, a);
                 current.remove(current.size()-1); // backtrack
-            }
+            } 
         }
     }
     
-    
-    // O(N*2^N) O(N) Backtracking
-//     public List<List<String>> partition(String s) {
-//         List<List<String>> res = new LinkedList<>();
-//         if (s == "") return res;
+    private boolean f(int i, int j, char[] a) {
+        if (i > j) return true;
         
-//         List<String> current = new LinkedList<>();
-//         int index = 0;
-//         partitionUtil(index, s.length(), s, current, res);
-//         return res;
-//     }
-    
-//     private void partitionUtil(int index, int n, String s, List<String> current, List<List<String>> res) {
-//         if (index == n) {
-//             res.add(new ArrayList<String>(current));
-//             return;
-//         }
-//         for (int i = index; i < n; i++) {
-//             if (isPalindrome(index, i, s)) {
-//                 current.add(s.substring(index, i+1));
-//                 partitionUtil(i + 1, n, s, current, res);
-//                 current.remove(current.size()-1); // backtrack
-//             }
-//         }
-//     }
-    
-//     private boolean isPalindrome(int start, int end, String s) {
-//         while (start < end) {
-//             if (s.charAt(start) != s.charAt(end)) return false;
-//             start++;
-//             end--;
-//         }
-//         return true;
-//     }
+        if (memo[i][j] != null) return memo[i][j];
+        
+        boolean res = false;
+        
+        if (a[i] == a[j] && f(i+1, j-1, a)) res = true;
+        
+        f(i+1, j, a);
+        f(i, j-1, a);
+        
+        return memo[i][j] = res;
+    }
 }
