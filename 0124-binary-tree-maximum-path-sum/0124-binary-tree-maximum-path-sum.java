@@ -1,32 +1,40 @@
-// O(N) O(N) postorder dfs
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    long maxi;
+    Integer maxi;
     public int maxPathSum(TreeNode root) {
         maxi = Integer.MIN_VALUE;
-        getMaxSum(root);
-        return (int)maxi;
+        f(root);
+        return maxi;
     }
     
-    private long getMaxSum(TreeNode node) {
+    private int f(TreeNode node) {
         if (node == null) return 0;
         
-        long leftMaxSum = getMaxSum(node.left);
+        int ls = f(node.left);
+        int rs = f(node.right);
         
-        long rightMaxSum = getMaxSum(node.right);
+        maxi = Math.max(maxi, node.val);
         
-        // if sum coming from left subtree is negative, it weakens our answer
-        // so don't propogate it upwards
-        leftMaxSum = leftMaxSum < 0 ? 0 : leftMaxSum;
+        maxi = Math.max(maxi, ls + node.val + rs);
         
-        // same for right
-        rightMaxSum = rightMaxSum < 0 ? 0 : rightMaxSum;
+        maxi = Math.max(maxi, ls + node.val);
         
-        // connecting the left and right paths
-        maxi = Math.max(maxi, leftMaxSum + rightMaxSum + node.val);
+        maxi = Math.max(maxi, rs + node.val);
         
-        // carry upwards the path which is gives more sum
-        maxi = Math.max(maxi, Math.max(leftMaxSum, rightMaxSum) + node.val);
-        
-        return Math.max(leftMaxSum, rightMaxSum) + node.val;
+        return Math.max(node.val, Math.max(ls, rs) + node.val);
     }
 }
