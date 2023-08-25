@@ -1,3 +1,4 @@
+// O(N*M) O(N*M)
 class Solution {
     public void solve(char[][] board) {
         int rows = board.length;
