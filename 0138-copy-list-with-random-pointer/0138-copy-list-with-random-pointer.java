@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public Node copyRandomList(Node head) {
         Node ogNode = new Node(-1);
