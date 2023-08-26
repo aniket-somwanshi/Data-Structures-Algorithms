@@ -1,3 +1,4 @@
+// O(NlogN) O(N) merge sort baby
 class Solution {
     public ListNode sortList(ListNode node) {
         if (node == null) return null;
