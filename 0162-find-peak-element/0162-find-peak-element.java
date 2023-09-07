@@ -1,3 +1,4 @@
+// O(logN) O(1)
 class Solution {
     public int findPeakElement(int[] a) {
         int n = a.length;
