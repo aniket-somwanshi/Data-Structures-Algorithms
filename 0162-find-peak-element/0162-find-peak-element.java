@@ -5,7 +5,7 @@ class Solution {
         int r = n-1;
         
         while (l <= r) {
-            int m = l + (r - l)/2;
+            int m = l+(r-l)/2;
             
             boolean isLeftSmall = m-1 < 0 || a[m-1] < a[m];
             boolean isRightSmall = m+1 >= n || a[m+1] < a[m];
