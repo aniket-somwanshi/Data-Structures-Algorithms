@@ -1,32 +1,32 @@
-class MinStack {
-    Stack<Integer> s;
-    Stack<Integer> ms;
-    public MinStack() {
-        s = new Stack<Integer>();
-        ms = new Stack<Integer>();
+class Node {
+    int num;
+    int mini;
+    public Node(int num, int mini) {
+        this.num = num;
+        this.mini = mini;
     }
-     public void push(int val) {
-        s.push(val);
-        if (ms.isEmpty() || val <= ms.peek()) ms.push(val);
+}
+class MinStack {
+    Stack<Node> st;
+    public MinStack() {
+        st = new Stack<>();
+    }
+    
+    public void push(int val) {
+        int newMini = st.isEmpty() ? val : Math.min(st.peek().mini, val);
+        st.push(new Node(val, newMini));
     }
     
     public void pop() {
-        int c = s.pop();
-        if (!ms.isEmpty() && c == ms.peek()) ms.pop();
+        st.pop();
     }
-    // int x = mStack.pop();
-    //     if (mMinStack.size() != 0) {
-    //         if (x == mMinStack.peek()) {
-    //             mMinStack.pop();
-    //         }
-    //     }
     
     public int top() {
-        return s.peek();
+        return st.peek().num;
     }
     
     public int getMin() {
-        return ms.peek();
+        return st.peek().mini;
     }
 }
 
