@@ -1,22 +1,37 @@
-// O(N) O(N+N)
+// O(N) O(2)
 class Solution {
     public int rob(int[] nums) {
         int n = nums.length;
         int[] dp = new int[n+2];
         
-        // base case
-        dp[n] = 0;
-        dp[n+1] = 0;
+        int next = 0; // dp[n] = 0;
+        int nextNext = 0; // dp[n+1] = 0;
         
-        // explore
         for (int i = n-1; i>=0; i--) {
-            dp[i] = Math.max(nums[i] + dp[i+2], dp[i+1]);
+            int ans = Math.max(nums[i] + nextNext, next);
+            nextNext = next;
+            next = ans;
         }
-        
-        return dp[0];
+        return next;
     }
-    
 }
+
+
+// // O(N) O(N)
+// class Solution {
+//     public int rob(int[] nums) {
+//         int n = nums.length;
+//         int[] dp = new int[n+2];
+        
+//         dp[n] = 0;
+//         dp[n+1] = 0;
+        
+//         for (int i = n-1; i>=0; i--) {
+//             dp[i] = Math.max(nums[i] + dp[i+2], dp[i+1]);
+//         }
+//         return dp[0];
+//     }
+// }
 
 // // O(N) O(N+N)
 // class Solution {
