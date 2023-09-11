@@ -1,62 +1,84 @@
+// class Solution {
+//     public int[] findOrder(int numCourses, int[][] prerequisites) {
+//         int[] indegree = new int[numCourses];
+//         List<Integer>[] graph = new LinkedList[numCourses];
+//         for (int i = 0; i < numCourses; i++) {
+//             graph[i] = new LinkedList<>();
+//         }
+//         for (int[] prerequisite: prerequisites) {
+//             int a = prerequisite[0], b = prerequisite[1];
+//             indegree[a]++;
+//             graph[b].add(a);
+//         }
+//         int[] ans = new int[numCourses];
+//         int finish = 0, idx = 0;
+//         Queue<Integer> q = new LinkedList<>();
+//         for (int i = 0; i < numCourses; i++) {
+//             if (indegree[i] == 0) {
+//                 q.offer(i);
+//             }
+//         }
+//         while (!q.isEmpty()) {
+//             int b = q.poll();
+//             finish++;
+//             ans[idx] = b;
+//             idx++;
+//             for (int a : graph[b]) {
+//                 indegree[a]--;
+//                 if (indegree[a] == 0) {
+//                     q.offer(a);
+//                 }
+//             }
+//         }
+//         return finish == numCourses ? ans : new int[0];
+//     }
+// }
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        // topological sort
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());
+        // create adjacency list
+        int[] indegree = new int[numCourses];
+        List<Integer>[] adj = new LinkedList[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            adj[i]=new LinkedList<>();
+        }
+        
+        // populate adj list
+        for (List<Integer> dd:adj)
+        System.out.println(dd);
         
         for (int[] p: prerequisites) {
-            adj.get(p[1]).add(p[0]);
+            int a = p[0];
+            int b = p[1];
+            indegree[a]++;
+            // System.out.println(u+"====>"+v);
+            adj[b].add(a);
         }
-        
-        // if there is a cycle, return empty array
-        if (isCyclePresent(adj, numCourses)) return new int[]{};
-        
-        
-        Stack<Integer> s = new Stack<>();
-        boolean[] vis = new boolean[numCourses];
-        Arrays.fill(vis, false);
-        for (int i = 0; i < numCourses; i++) {
-            if (!vis[i]) dfs(i, adj, s, vis);
-        }
+        for (List<Integer> dd:adj)
+        System.out.println(dd);
         
         int[] res = new int[numCourses];
-        int i = 0;
-        while (!s.isEmpty()) {
-            res[i++] = s.pop();
+        int resIndex = 0;
+        
+        // System.out.println(adj[0].get(0));
+        
+        // exhaust dependencies
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) q.offer(i);
         }
-        return res;
-    }
     
-    private boolean isCyclePresent(List<List<Integer>> adj, int n) {
-        int[] state = new int[n];
-        for (int i = 0; i < n; i++) {
-            if (state[i] == 0) {
-                if (isCycle(i, adj, state)) return true;
+        while (!q.isEmpty()) {
+            
+            int current = q.poll();
+            System.out.println(current+" - "+indegree[current]);
+            res[resIndex] = current;
+            resIndex++;
+            for (int v: adj[current]) {
+                indegree[v]--;
+                if (indegree[v] == 0) q.offer(v);
             }
         }
-        return false;
-    }
-    
-    private boolean isCycle(int node, List<List<Integer>> adj, int[] state) {
-        state[node] = 1;
-        for (int nb: adj.get(node)) {
-            if (state[nb] == 1) return true;
-            else if (state[nb] == 0) {
-                if (isCycle(nb, adj, state)) return true;
-            }
-        }
-        state[node] = 2;
-        return false;
-    }
-    int i = 0;
-    private void dfs(int node, List<List<Integer>> adj, Stack<Integer> s, boolean[] vis) {
-        vis[node] = true;
-        for (int nb: adj.get(node)) {
-            if (!vis[nb]) {
-                dfs(nb, adj, s, vis);
-            }
-        }
-        System.out.println(node);
-        s.push(node);
+        
+        return resIndex == numCourses ? res : new int[] {};
     }
 }
