@@ -1,3 +1,4 @@
+// O(E logV) O(V)  -- E = V = N*M 
 class Solution {
     int rows;
     int cols;
