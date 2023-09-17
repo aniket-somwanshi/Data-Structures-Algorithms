@@ -1,3 +1,8 @@
+// W = no of words
+// L = avg length of a word
+// N = rows, M = cols
+// O(W*L + N*M*(min(N*M, L)))
+// O(W*L + W + W)
 class TrieNode {
     TrieNode[] children;
     int countOfWords; // count of words containing this letter
