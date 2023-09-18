@@ -1,3 +1,4 @@
+// O(2N*log2N + N*N) O(2N)
 class Solution {
     public List<List<Integer>> getSkyline(int[][] buildings) {
         List<List<Integer>> res = new ArrayList<>();
