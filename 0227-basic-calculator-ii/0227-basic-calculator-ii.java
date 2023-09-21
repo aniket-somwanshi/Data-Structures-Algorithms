@@ -1,3 +1,4 @@
+// O(N) O(N)
 class Solution {
     public int calculate(String s) {
         Stack<Integer> st = new Stack<>();        
