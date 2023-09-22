@@ -1,3 +1,4 @@
+// O(N+M) O(N)
 class Solution {
     public boolean isAnagram(String s, String t) {
         Map<Character, Integer> map = new HashMap<>();
