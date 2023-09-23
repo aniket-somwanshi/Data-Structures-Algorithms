@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public void moveZeroes(int[] nums) {
         int left = 0;
