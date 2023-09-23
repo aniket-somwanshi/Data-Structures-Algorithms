@@ -1,3 +1,4 @@
+// O(N*100) O(N+N)
 class Solution {
     Integer[] memo;
     int n;
