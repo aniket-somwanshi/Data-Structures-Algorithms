@@ -1,27 +1,24 @@
-import java.util.HashMap;
 class Solution {
-    public int numSquares(int n){
-        return numSquares( n, new HashMap<Integer,Integer>());
+    Integer[] memo;
+    int n;
+    public int numSquares(int n) {
+        this.n = n;
+        memo = new Integer[n+1];
+        return f(n);
     }
-    public int numSquares(int amount, HashMap<Integer,Integer> dp) {
-        if( amount == 0){
-            return 0;
+    
+    private int f(int n) {
+        // base case
+        if (n == 0) return 0;
+        
+        // memo
+        if (memo[n] != null) return memo[n];
+        
+        // explore
+        int mini = Integer.MAX_VALUE;
+        for (int num=(int)Math.sqrt(n); num >= 1; num--) {
+            mini = Math.min(mini, 1 + f(n-(num*num)));
         }
-        if(dp.containsKey(amount)){
-            return dp.get(amount);
-        }
-        int ways = -1;
-        for(int i = 1 ; i <= amount;++i ){
-            if(i*i <= amount){ 
-                int temp = numSquares(amount-i*i,dp);
-                if(temp != -1){
-                    ways = ways ==-1 || 1 + temp < ways ? 1 + temp : ways;
-                }
-            }else{
-                break;
-            }
-        }
-        dp.put(amount,ways);
-        return ways;
+        return memo[n] = mini;
     }
 }
