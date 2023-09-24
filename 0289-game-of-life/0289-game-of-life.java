@@ -1,3 +1,4 @@
+// O(2*N*M) O(1)
 class Solution {
      public void gameOfLife(int[][] board) {
          int rows = board.length;
