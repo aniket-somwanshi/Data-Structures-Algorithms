@@ -1,53 +1,27 @@
-// O(logN)-O(logN) O(N)
-// We want the middle of the sorted elements
-// so keep a left half and a right half
-// so that left half <= right half
-// so the medians will be biggest from left half
-// and the smalles from the right half
-// provided that the size of left and right half are equal
-// we can achieve this using a maxHeap and minHeap
 class MedianFinder {
-    PriorityQueue<Integer> leftHalf;
-    PriorityQueue<Integer> rightHalf;
+    PriorityQueue<Integer> maxHeap; 
+    PriorityQueue<Integer> minHeap; 
+    int n;
     
     public MedianFinder() {
-        leftHalf = new PriorityQueue<Integer>((a,b)->b-a); // max heap
-        rightHalf = new PriorityQueue<Integer>(); // min heap
+        maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        minHeap = new PriorityQueue<>();
+        n = 0;
     }
     
     public void addNum(int num) {
-        // we should always keep the 2 halves balanced
-        // in terms of number of elements
-        leftHalf.add(num);
-        
-        if (rightHalf.size() > 0 && leftHalf.peek() > rightHalf.peek()) {
-            int wrongInsertion = leftHalf.poll();
-            rightHalf.add(wrongInsertion);
-        }
-        
-        // size imbalance
-        if (leftHalf.size() > rightHalf.size()+1) {
-            int extraElement = leftHalf.poll();
-            rightHalf.add(extraElement);
-        }
-        if (rightHalf.size() > leftHalf.size()+1) {
-            int extraElement = rightHalf.poll();
-            leftHalf.add(extraElement);
+        maxHeap.add(num);
+        minHeap.add(maxHeap.poll());
+        if (minHeap.size() > maxHeap.size()) {
+            maxHeap.add(minHeap.poll());
         }
     }
     
     public double findMedian() {
-        // if one of them has an extra number, that is the median
-        if (leftHalf.size() > rightHalf.size()) {
-            return leftHalf.peek();
+        if (maxHeap.size() > minHeap.size()) {
+            return (double)maxHeap.peek();
         }
-        else if (rightHalf.size() > leftHalf.size()) {
-            return rightHalf.peek();
-        }
-        else {
-            // they are equal so both it's the median of 2 middle numbers
-            return (leftHalf.peek() + rightHalf.peek())/2.0;
-        }
+        else return (minHeap.peek()+maxHeap.peek())/2.0d;
     }
 }
 
