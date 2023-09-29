@@ -1,3 +1,4 @@
+// O(N*logN) O(N)
 class Pair {
     int val;
     int index;
@@ -18,8 +19,6 @@ class Solution {
             Pair p = new Pair(nums[i], i);
             a[i] = p;
         }
-        for (Pair pp: a)
-        System.out.println(pp.val);
         mergeSort(0, n-1, a);
         return Arrays.asList(res);
     }
