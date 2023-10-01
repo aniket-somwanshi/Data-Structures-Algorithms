@@ -1,3 +1,4 @@
+// O(N+ NlogK + (N-k)logK + KlogK) O(N+K)
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
