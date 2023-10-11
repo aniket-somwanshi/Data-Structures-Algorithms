@@ -1,4 +1,6 @@
-// synchronization using one shared variable
+
+// synchronizing only shared variables section
+// using one shared variable
 class ZeroEvenOdd {
     private int n;
     
@@ -12,12 +14,12 @@ class ZeroEvenOdd {
     public void zero(IntConsumer printNumber) throws InterruptedException {
         for (int i = 1; i <= n; i++) {
             synchronized(this) {
-            while (currentTurn != 0) {
-                wait();
-            }
-            printNumber.accept(0);
-            currentTurn = i%2 == 1 ? 1 : 2;
-            notifyAll();
+                while (currentTurn != 0) {
+                    wait();
+                }
+                printNumber.accept(0);
+                currentTurn = i%2 == 1 ? 1 : 2;
+                notifyAll();
             }
         }
     }
@@ -25,12 +27,12 @@ class ZeroEvenOdd {
     public  void even(IntConsumer printNumber) throws InterruptedException {
         for (int i = 2; i <= n; i+=2) {
             synchronized(this) {
-            while (currentTurn != 2) {
-                wait();
-            }
-            printNumber.accept(i);
-            currentTurn = 0;
-            notifyAll();
+                while (currentTurn != 2) {
+                    wait();
+                }
+                printNumber.accept(i);
+                currentTurn = 0;
+                notifyAll();
             }
         }
     }
@@ -38,12 +40,12 @@ class ZeroEvenOdd {
     public  void odd(IntConsumer printNumber) throws InterruptedException {
         for (int i = 1; i <= n; i+=2) {
             synchronized(this) {
-            while (currentTurn != 1) {
-                wait();
-            }
-            printNumber.accept(i);
-            currentTurn = 0;
-            notifyAll();
+                while (currentTurn != 1) {
+                    wait();
+                }
+                printNumber.accept(i);
+                currentTurn = 0;
+                notifyAll();
             }
         }
     }
