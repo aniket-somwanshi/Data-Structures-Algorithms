@@ -1,6 +1,6 @@
 class FizzBuzz {
     private int n;
-    private volatile int i = 1;
+    private int i = 1;
     public FizzBuzz(int n) {
         this.n=n;
     }
