@@ -11,7 +11,7 @@ class FooBar {
     public void foo(Runnable printFoo) throws InterruptedException {
         for (int i = 0; i < n; i++) {
             synchronized(lock) {
-                while (turn != 0) lock.wait();
+                if (turn != 0) lock.wait();
                 
                 printFoo.run();
                 turn = 1;
@@ -23,7 +23,7 @@ class FooBar {
     public void bar(Runnable printBar) throws InterruptedException {
        for (int i = 0; i < n; i++) {
             synchronized(lock) {
-                while (turn != 1) lock.wait();
+                if (turn != 1) lock.wait();
                 
                 printBar.run();
                 turn = 0;
