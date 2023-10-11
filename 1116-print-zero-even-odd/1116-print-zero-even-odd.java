@@ -9,39 +9,89 @@ class ZeroEvenOdd {
     }
 
     // printNumber.accept(x) outputs "x", where x is an integer.
-    public synchronized void zero(IntConsumer printNumber) throws InterruptedException {
+    public void zero(IntConsumer printNumber) throws InterruptedException {
         for (int i = 1; i <= n; i++) {
+            synchronized(this) {
             while (currentTurn != 0) {
                 wait();
             }
             printNumber.accept(0);
             currentTurn = i%2 == 1 ? 1 : 2;
             notifyAll();
+            }
         }
     }
 
-    public synchronized void even(IntConsumer printNumber) throws InterruptedException {
+    public  void even(IntConsumer printNumber) throws InterruptedException {
         for (int i = 2; i <= n; i+=2) {
+            synchronized(this) {
             while (currentTurn != 2) {
                 wait();
             }
             printNumber.accept(i);
             currentTurn = 0;
             notifyAll();
+            }
         }
     }
 
-    public synchronized void odd(IntConsumer printNumber) throws InterruptedException {
+    public  void odd(IntConsumer printNumber) throws InterruptedException {
         for (int i = 1; i <= n; i+=2) {
+            synchronized(this) {
             while (currentTurn != 1) {
                 wait();
             }
             printNumber.accept(i);
             currentTurn = 0;
             notifyAll();
+            }
         }
     }
 }
+// // synchronization using one shared variable
+// class ZeroEvenOdd {
+//     private int n;
+    
+//     private int currentTurn = 0;
+    
+//     public ZeroEvenOdd(int n) {
+//         this.n = n;
+//     }
+
+//     // printNumber.accept(x) outputs "x", where x is an integer.
+//     public synchronized void zero(IntConsumer printNumber) throws InterruptedException {
+//         for (int i = 1; i <= n; i++) {
+//             while (currentTurn != 0) {
+//                 wait();
+//             }
+//             printNumber.accept(0);
+//             currentTurn = i%2 == 1 ? 1 : 2;
+//             notifyAll();
+//         }
+//     }
+
+//     public synchronized void even(IntConsumer printNumber) throws InterruptedException {
+//         for (int i = 2; i <= n; i+=2) {
+//             while (currentTurn != 2) {
+//                 wait();
+//             }
+//             printNumber.accept(i);
+//             currentTurn = 0;
+//             notifyAll();
+//         }
+//     }
+
+//     public synchronized void odd(IntConsumer printNumber) throws InterruptedException {
+//         for (int i = 1; i <= n; i+=2) {
+//             while (currentTurn != 1) {
+//                 wait();
+//             }
+//             printNumber.accept(i);
+//             currentTurn = 0;
+//             notifyAll();
+//         }
+//     }
+// }
 
 // // semaphore
 // class ZeroEvenOdd {
