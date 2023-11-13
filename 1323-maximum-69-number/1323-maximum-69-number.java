@@ -1,3 +1,4 @@
+// O(3N) O(3N) N = number of digits in num
 class Solution {
     public int maximum69Number (int num) {
         String s = String.valueOf(num);
