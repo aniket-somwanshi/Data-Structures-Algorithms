@@ -1,3 +1,4 @@
+// O(N) O(N)
 class Solution {
     public int minSteps(String s, String t) {
         int extras = 0;
