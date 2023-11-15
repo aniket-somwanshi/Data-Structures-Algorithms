@@ -1,3 +1,4 @@
+// O(N + 26*log26) O(26*26)
 class Solution {
     int[][] map;
     public String rankTeams(String[] votes) {
