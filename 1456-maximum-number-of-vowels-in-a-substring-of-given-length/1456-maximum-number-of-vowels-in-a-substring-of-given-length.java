@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public int maxVowels(String s, int k) {
         Set<Character> set = new HashSet<>();
