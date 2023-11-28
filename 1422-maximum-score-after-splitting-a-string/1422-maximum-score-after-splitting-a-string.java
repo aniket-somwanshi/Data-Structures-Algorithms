@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public int maxScore(String s) {
         int n = s.length();
