@@ -1,3 +1,4 @@
+// O(N*K) O(N) K = 9 here
 class Solution {
     private int count;
     public int pseudoPalindromicPaths (TreeNode root) {
