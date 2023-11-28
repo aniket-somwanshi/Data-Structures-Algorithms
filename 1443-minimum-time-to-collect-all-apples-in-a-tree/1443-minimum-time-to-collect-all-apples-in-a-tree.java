@@ -1,59 +1,42 @@
 class Solution {
-    
+    List<List<Integer>> adj;
+    int n;
+    List<Boolean> hasApple;
     public int minTime(int n, int[][] edges, List<Boolean> hasApple) {
-        // create the adjacency list
-        List<List<Integer>> adj = new ArrayList<>();
-        
-        // initialize adj list
-        for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<>());
-        }
-        
-        // create continous tree rather than a disconnected tree
-        // connect to already connected nodes, by keeping a visited array
-        boolean[] isConnected = new boolean[n];
-        Arrays.fill(isConnected, false);
+        this.n = n;
+        this.adj = new ArrayList<>();
+        this.hasApple = hasApple;
         
         // create adj list
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());
         for (int[] edge: edges) {
             int u = edge[0];
             int v = edge[1];
-            if (isConnected[u] == false && isConnected[v] == true) {
-                adj.get(v).add(u);
-            }
-            else {
-                adj.get(u).add(v);
-            }
-            isConnected[u] = true;
-            isConnected[v] = true;
+            adj.get(u).add(v);
+            adj.get(v).add(u);
         }
         
-        return dfs(0, hasApple, adj) * 2;
+        // dfs
+        Integer res = dfs(0, -1);
+        return res == null ? 0 : res-2;
     }
     
-    private int dfs(int node, List<Boolean> hasApple, List<List<Integer>> adj) {
-        int childrenDepthTillLastApple = 0;
-        for (int child: adj.get(node)) {
-            childrenDepthTillLastApple += dfs(child, hasApple, adj);
+    private Integer dfs(int node, int parent) {        
+        // get results from the below level
+        int costFromChildren = 0;
+        
+        for (int v: adj.get(node)) {
+            // skip the parent back edge
+            if (v == parent) continue;
+            Integer childResult = dfs(v, node);
+            costFromChildren += childResult != null ? childResult : 0;
         }
-        if (node == 0) return childrenDepthTillLastApple;
-        if (childrenDepthTillLastApple == 0) {
-            if (hasApple.get(node) == true) return 1;
-            else return 0;
-        }
-        else return childrenDepthTillLastApple + 1;
+        
+        // send null above if there is no costFromChildren 
+        // and current node is also not an apple
+        
+        if (costFromChildren == 0 && !hasApple.get(node)) return null;
+        
+        return costFromChildren + 2;
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
