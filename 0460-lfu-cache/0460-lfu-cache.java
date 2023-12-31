@@ -1,3 +1,4 @@
+// O(1) O(N)
 class LFUCache {
     Map<Integer, ListNode> keyMap;
     Map<Integer, DoublyLinkedList> countMap;
