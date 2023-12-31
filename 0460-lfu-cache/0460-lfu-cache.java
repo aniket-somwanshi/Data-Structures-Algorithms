@@ -1,149 +1,123 @@
-class DLL {
-    DLLNode head;
-    DLLNode tail;
-    int size;
-    public DLL() {
-        head = new DLLNode(0, 0);
-        tail = new DLLNode(0, 0);
-        head.next = tail;
-        tail.prev = head;
-        this.size = 0;
-    }
-    
-    public void addNode(DLLNode node) {
-        DLLNode ogFirst = head.next;   
-        head.next = node;
-        node.prev = head;
-        node.next = ogFirst;
-        ogFirst.prev = node;
-        
-        size++;
-    }
-    
-    public void removeNode(DLLNode node) {
-        DLLNode delPrev = node.prev;
-        DLLNode delNext = node.next;
-        
-        delPrev.next = delNext;
-        delNext.prev = delPrev;
-        
-        size--;
-    }
-}
-class DLLNode {
-    DLLNode prev;
-    DLLNode next;
-    int val;
-    int key;
-    int count;
-    public DLLNode(int key, int val) {
-        this.val = val;
-        this.key = key;
-        this.count = 1;
-    }
-    public DLLNode() {
-        this.count = 1;
-    }
-    
-}
 class LFUCache {
+    Map<Integer, ListNode> keyMap;
+    Map<Integer, DoublyLinkedList> countMap;
+    int miniCount;
+    int size;
     int capacity;
-    Map<Integer, DLLNode> nodeMap; // key -> DLL Node
-    Map<Integer, DLL> freqMap; // frequency -> doubly linked list nodes
-    int lowestFrequency;
+    
     public LFUCache(int capacity) {
+        keyMap = new HashMap<>();
+        countMap = new HashMap<>();
+        miniCount = 0;
         this.capacity = capacity;
-        this.nodeMap = new HashMap<>();
-        this.freqMap = new HashMap<>();
-        this.lowestFrequency = 0;
     }
     
     public int get(int key) {
-        if (!nodeMap.containsKey(key)) {
+        if (keyMap.containsKey(key)) {
+            ListNode node = keyMap.get(key);
+            markAsUsed(node);
+            return node.val;
+        }
+        else {
             return -1;
         }
-        DLLNode targetNode = nodeMap.get(key);
-        int valueToReturn = targetNode.val;
-        
-        // update it's frequency by 1
-        updateFrequency(targetNode);
-        
-        return valueToReturn;
     }
     
     public void put(int key, int value) {
         if (capacity == 0) return;
-        
-        if (nodeMap.containsKey(key)) {
-            DLLNode node = nodeMap.get(key);
+        if (keyMap.containsKey(key)) {
+            ListNode node = keyMap.get(key);
             node.val = value;
-            updateFrequency(node);
+            markAsUsed(node);
         }
-        // if the capacity is not full
         else {
-            if (nodeMap.size() == capacity) {
-                // need to remove one guy cos there's no space
-                DLL lowestList = freqMap.get(lowestFrequency);
-                DLLNode lastGuy = lowestList.tail.prev;
-                // remove it from nodeMap
-                nodeMap.remove(lastGuy.key);
-                // remove it from the freqList
-                lowestList.removeNode(lastGuy);
-            }
-            // simply add the new guy with count = 1
-            lowestFrequency = 1; // we know this for sure cos we're adding freq 1 guy now
+            ListNode node = new ListNode(key, value);
+            keyMap.put(key, node);
             
-            // get the min lowest freq list
-            if (!freqMap.containsKey(lowestFrequency)) {
-                freqMap.put(lowestFrequency, new DLL());
+            if (size == capacity) {
+                // get the mininum count's dll
+                DoublyLinkedList dll = countMap.get(miniCount);
+                ListNode nodeToBeRemoved = dll.removeLast();
+                keyMap.remove(nodeToBeRemoved.key);
+                size--;
             }
-            DLL lowestList = freqMap.get(lowestFrequency);
             
-            // create the node to be added
-            DLLNode newNode = new DLLNode(key, value);
-            lowestList.addNode(newNode);
-            // update in nodeMap
-            nodeMap.put(key, newNode);
-            // freqMap.put(lowestFrequency, lowestList)
+            miniCount = 1;
+            DoublyLinkedList dll = countMap.getOrDefault(1, new DoublyLinkedList());
+            dll.addNode(node);
+            size++;
+            countMap.put(1, dll);
         }
     }
     
-    private void updateFrequency(DLLNode node) {
-        int originalFrequency = node.count;
-        // remove node from current freqList
-        DLL targetList = freqMap.get(originalFrequency);
-        // remove it from this list
-        targetList.removeNode(node);
+    private void markAsUsed(ListNode node) {
+        DoublyLinkedList oldList = countMap.get(node.count);
+        oldList.remove(node);
         
-        // if the list from which this node was removed, is empty now
-        // increase the lowestFrequency, it lowesFreq List was emptied
-        if (lowestFrequency == originalFrequency && targetList.size == 0) {
-            lowestFrequency++;
+        if (oldList.size == 0 && miniCount == node.count) {
+            miniCount++;
         }
         
-        // add it in new freq list
-        int newFrequency = originalFrequency + 1;
+        node.count++;
         
-        // add the node in the newFreq list
-        if (!freqMap.containsKey(newFrequency)) {
-            freqMap.put(newFrequency, new DLL());
+        DoublyLinkedList newList = countMap.getOrDefault(node.count, new DoublyLinkedList());
+        newList.addNode(node);
+        countMap.put(node.count, newList);
+    }
+}
+
+class DoublyLinkedList {
+    ListNode head;
+    ListNode tail;
+    int size;
+    
+    public DoublyLinkedList() {
+        head = new ListNode(1,1);
+        tail = new ListNode(1,1);
+        head.next = tail;
+        tail.prev = head;
+        size = 0;
+    }
+    
+    public void addNode(ListNode node) {
+        head.next.prev = node;
+        node.next = head.next;
+        head.next = node;
+        node.prev = head;
+        size++;
+    }
+
+    public ListNode removeLast() {
+        if (size == 0) {
+            System.out.println("Nothing there to delete");
+            return null;
         }
-        DLL newFrequencyList = freqMap.get(newFrequency);
+        ListNode lastNode = tail.prev;
+        remove(lastNode);
+        return lastNode;
+    }
+
+    public void remove(ListNode node) {   
+        ListNode nextNode = node.next;
+        ListNode prevNode = node.prev;
         
-        // add node at first
-        node.count = newFrequency;
-        newFrequencyList.addNode(node);
-        // freqMap.put(newFrequency, newFrequencyList)
-        
-        // update node map 
-        nodeMap.put(node.key, node);
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+        size--;
     }
     
-    private int getCurrentSize() {
-        return nodeMap.size();
-    }
+}
+
+class ListNode {
+    int key;
+    int val;
+    int count;
+    ListNode next;
+    ListNode prev;
     
-    private boolean isListEmpty(int frequency) {
-        return !freqMap.containsKey(frequency) || freqMap.get(frequency) == null; 
+    public ListNode(int key, int val) {
+        this.key = key;
+        this.val = val;
+        this.count = 1;
     }
 }
