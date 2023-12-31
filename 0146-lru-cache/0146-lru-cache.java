@@ -1,112 +1,106 @@
-import java.util.Hashtable;
-
-
-public class LRUCache {
-
-class DLinkedNode {
-  int key;
-  int value;
-  DLinkedNode pre;
-  DLinkedNode post;
-}
-
-/**
- * Always add the new node right after head;
- */
-private void addNode(DLinkedNode node) {
+class ListNode {
+    int key;
+    int val;
+    ListNode next;
+    ListNode prev;
     
-  node.pre = head;
-  node.post = head.post;
-
-  head.post.pre = node;
-  head.post = node;
-}
-
-/**
- * Remove an existing node from the linked list.
- */
-private void removeNode(DLinkedNode node){
-  DLinkedNode pre = node.pre;
-  DLinkedNode post = node.post;
-
-  pre.post = post;
-  post.pre = pre;
-}
-
-/**
- * Move certain node in between to the head.
- */
-private void moveToHead(DLinkedNode node){
-  this.removeNode(node);
-  this.addNode(node);
-}
-
-// pop the current tail. 
-private DLinkedNode popTail(){
-  DLinkedNode res = tail.pre;
-  this.removeNode(res);
-  return res;
-}
-
-private Hashtable<Integer, DLinkedNode> 
-  cache = new Hashtable<Integer, DLinkedNode>();
-private int count;
-private int capacity;
-private DLinkedNode head, tail;
-
-public LRUCache(int capacity) {
-  this.count = 0;
-  this.capacity = capacity;
-
-  head = new DLinkedNode();
-  head.pre = null;
-
-  tail = new DLinkedNode();
-  tail.post = null;
-
-  head.post = tail;
-  tail.pre = head;
-}
-
-public int get(int key) {
-
-  DLinkedNode node = cache.get(key);
-  if(node == null){
-    return -1; // should raise exception here.
-  }
-
-  // move the accessed node to the head;
-  this.moveToHead(node);
-
-  return node.value;
-}
-
-
-public void put(int key, int value) {
-  DLinkedNode node = cache.get(key);
-
-  if(node == null){
-
-    DLinkedNode newNode = new DLinkedNode();
-    newNode.key = key;
-    newNode.value = value;
-
-    this.cache.put(key, newNode);
-    this.addNode(newNode);
-
-    ++count;
-
-    if(count > capacity){
-      // pop the tail
-      DLinkedNode tail = this.popTail();
-      this.cache.remove(tail.key);
-      --count;
+    public ListNode(int key, int val) {
+        this.key = key;
+        this.val = val;
     }
-  }else{
-    // update the value.
-    node.value = value;
-    this.moveToHead(node);
-  }
+}
+class LRUCache {
+    Map<Integer, ListNode> map; // <key, node>
+    ListNode first;
+    ListNode last;
+    int size;
+    int capacity;
+    
+    public LRUCache(int capacity) {
+        first = new ListNode(-1,-1);    
+        last = new ListNode(-1,-1);
+        first.next = last;
+        last.prev = first;
+        map = new HashMap<>();
+        this.capacity = capacity;
+    }
+    
+    private void addToFront(ListNode node) {
+        ListNode oldSecond = first.next;
+        first.next = node;
+        node.prev = first;
+        node.next = oldSecond;
+        oldSecond.prev = node;
+    }
+    
+    private void removeFromBack() {
+        if (size == 0) {
+            System.out.println("no element there to delete");
+            return;
+        }
+        map.remove(last.prev.key);
+        ListNode secondLast = last.prev.prev;
+        last.prev = secondLast;
+        secondLast.next = last;
+        size--;
+    }
+    
+    public int get(int key) {
+        // get the val 
+        if (!map.containsKey(key)) return -1;
+        ListNode node = map.get(key);
+        int resVal = node.val;
+        
+        // detach node
+        ListNode nextNode = node.next;
+        ListNode prevNode = node.prev;
+        
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+        
+        // attach it to the front
+        addToFront(node);
+        
+        return resVal;
+    }
+    
+    public void put(int key, int value) {
+        // if key doesn't exist
+        // then create and attach it to the front
+        if (!map.containsKey(key)) {
+            ListNode node = new ListNode(key, value);
+            map.put(key, node);
+            addToFront(node);
+            size++;
+            
+            // if the size exceeds the limit
+            // remove the last node
+            if (size > capacity) {
+                removeFromBack();
+            }
+        }
+        // if key exists
+        // update the value 
+        else {
+            ListNode node = map.get(key);
+            node.val = value;
+            
+            // detach node
+            ListNode nextNode = node.next;
+            ListNode prevNode = node.prev;
+
+            prevNode.next = nextNode;
+            nextNode.prev = prevNode;
+            
+            // add to front
+            addToFront(node);
+        }
+    }
 }
 
-}
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
