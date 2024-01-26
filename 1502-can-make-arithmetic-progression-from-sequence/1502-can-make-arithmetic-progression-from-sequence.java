@@ -1,3 +1,4 @@
+// O(NlogN) O(logN)
 class Solution {
     public boolean canMakeArithmeticProgression(int[] arr) {
         Arrays.sort(arr);
