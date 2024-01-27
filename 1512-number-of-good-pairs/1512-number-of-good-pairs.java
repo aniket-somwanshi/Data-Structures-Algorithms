@@ -1,3 +1,4 @@
+// O(N) O(N)
 class Solution {
     public int numIdenticalPairs(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
