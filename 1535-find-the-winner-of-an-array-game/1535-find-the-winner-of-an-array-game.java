@@ -1,3 +1,4 @@
+// O(N) O(1)
 class Solution {
     public int getWinner(int[] a, int k) {
         int n = a.length;
