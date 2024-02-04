@@ -1,3 +1,4 @@
+// O(N^2) O(N)
 class Solution {
     public int minSwaps(int[][] a) {
         int res = 0;
