@@ -14,7 +14,7 @@ class Solution {
             }
             dp[i]=mini;
         }
-        
+        // while(true){}
         return dp[n];
     }
     
