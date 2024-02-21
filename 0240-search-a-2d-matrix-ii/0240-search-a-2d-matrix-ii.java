@@ -1,3 +1,4 @@
+// O(N+M) O(1)
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         int rows = matrix.length;
