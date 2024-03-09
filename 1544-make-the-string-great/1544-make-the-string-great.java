@@ -1,3 +1,4 @@
+// O(N) O(N)
 class Solution {
     public String makeGood(String s) {
         StringBuilder sb = new StringBuilder();
