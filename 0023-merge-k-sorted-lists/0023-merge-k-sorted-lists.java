@@ -1,13 +1,4 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
+// O(K*N) O(1) -- K=number of lists. N = total number of nodes across all lists
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         ListNode preHead = new ListNode();
